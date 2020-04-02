@@ -69,14 +69,53 @@
       </Col>
     </Row>
     <Drawer title="全部章节" placement="left" :closable="false" v-model="value1">
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
+      <a class="book-left-list">Some contentsd11111ddddddddddd111111</a>
+      <a class="book-left-list">Some contents...</a>
+      <a class="book-left-list">Some contents...</a>
+      <a class="book-left-list">Some contents...</a>
+      <a class="book-left-list">Some contents...</a>
+      <a class="book-left-list">Some contents...</a>
     </Drawer>
     <Drawer title="设置" :closable="false" v-model="value2">
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
+      <b class="book-latel">背景主题</b>
+      <Row>
+        <Col class="book-color" span="6" style="background-color: #feecdc;" id="book-color-1" @onclick="changeBookColor(1)">
+          <div class="book-color-div"><Icon type="ios-checkmark" size="33" style="margin-top: 2px;"/></div>
+        </Col>
+        <Col class="book-color" span="6" style="background-color: #fdf6b2;"></Col>
+        <Col class="book-color" span="6" style="background-color: #f3faf7;"></Col>
+        <Col class="book-color" span="6" style="background-color: #edfafa;"></Col>
+        <Col class="book-color" span="6" style="background-color: #ebf5ff;"></Col>
+        <Col class="book-color" span="6" style="background-color: #f0f5ff;"></Col>
+        <Col class="book-color" span="6" style="background-color: #f6f5ff;"></Col>
+        <Col class="book-color" span="6" style="background-color: #838192;"></Col>
+      </Row>
+      <b class="book-latel1">字体样式</b>
+      <Row>
+        <Col span="24" style="padding-left: 1rem;">
+          <RadioGroup v-model="button1" type="button">
+            <Radio label="北京"></Radio>
+            <Radio label="上海"></Radio>
+            <Radio label="深圳"></Radio>
+          </RadioGroup>
+        </Col>
+      </Row>
+      <b class="book-latel1">字体大小</b>
+      <Row>
+        <Col span="3">&nbsp;</Col>
+        <Col span="6" class="book-font-style">111</Col>
+        <Col span="6" class="book-font-style1">111</Col>
+        <Col span="6" class="book-font-style2">111</Col>
+        <Col span="3">&nbsp;</Col>
+      </Row>
+      <b class="book-latel1">字体行高</b>
+      <Row>
+        <Col span="3">&nbsp;</Col>
+        <Col span="6" class="book-font-style">111</Col>
+        <Col span="6" class="book-font-style1">111</Col>
+        <Col span="6" class="book-font-style2">111</Col>
+        <Col span="3">&nbsp;</Col>
+      </Row>
     </Drawer>
   </div>
 </template>
@@ -89,7 +128,8 @@
     data () {
       return {
         value1: false,
-        value2: false
+        value2: false,
+        button1: '北京',
       }
     },
     mounted: function () {
@@ -115,6 +155,11 @@
           document.getElementById('book-content').style.top = '3rem';
         }
         console.log(scrollTop)
+      },
+      changeBookColor(n) {
+        for (let i = 1; i <9 ; i++) {
+          document.getElementById('book-color-'+i).innerText='';
+        }
       }
     },
     destroyed: function () {
@@ -153,6 +198,65 @@
   }
   .book-content::-webkit-scrollbar {
     display: none !important;
+  }
+  .book-left-list {
+    border-bottom: 1px dashed #bdbdbd;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    color: #808695;
+  }
+  .book-color {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    margin-right: 1rem;
+    margin-top: .5rem;
+    position: relative;
+  }
+  .book-font-style {
+    border-left: 1px solid;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    border-radius: 5px 0 0 5px;
+    text-align: center;
+    height: 2rem;
+    line-height: 1.8rem;
+  }
+  .book-font-style1 {
+    border: 1px solid;
+    text-align: center;
+    height: 2rem;
+    line-height: 1.8rem;
+  }
+  .book-font-style2 {
+    border-right: 1px solid;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    border-radius: 0 5px 5px 0;
+    text-align: center;
+    height: 2rem;
+    line-height: 1.8rem;
+  }
+  .book-latel {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  .book-latel1 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: .6rem 0;
+    display: block;
+  }
+  .book-color-div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #ff000000;
+    border-radius: 50%;
   }
 </style>
 
