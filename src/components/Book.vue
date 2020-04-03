@@ -79,8 +79,8 @@
     <Drawer title="设置" :closable="false" v-model="value2">
       <b class="book-latel">背景主题</b>
       <Row>
-        <div @click="changeBookColor(1, 'color-1', '#dec9b7')">
-          <Col class="book-color" span="6" style="background-color: #feecdc;" id="book-color-1">
+        <div @click="changeBookColor(1, 'color-1', '#feecdc')">
+          <Col class="book-color" span="6" style="background-color: #fff8f1;" id="book-color-1">
             <div class="book-color-div"><img :src="imgUrl_require" alt=""></div>
           </Col>
         </div>
@@ -278,7 +278,7 @@
     padding-top: 3px;
   }
   .color-1 {
-    background: #feecdc;
+    background: #fff8f1;
   }
   .color-2 {
     background: #fdf6b2;
