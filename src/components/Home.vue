@@ -2,6 +2,7 @@
   <div>
     <Row>
       <Icon type="ios-contact" class="book-user" size="24" @click="jumpLogin()" />
+      <Icon type="ios-book" class="book-user1" size="24" @click="jumpBookshelf()" />
     </Row>
     <div class="home">
       <Row type="flex" justify="center" class="code-row-bg">
@@ -12,7 +13,7 @@
       <Row type="flex" justify="center" class="code-row-bg">
         <Col :sm="1" :md="2"></Col>
         <Col :sm="14" :md="12" style="padding: 3rem 0;" class="book-search bounce-in-bottom">
-          <Input size="large" search enter-button="搜索" placeholder="搜小说、作者" />
+          <Input size="large" @on-search="jumpBooks" v-model="book" search enter-button="搜索" placeholder="搜小说、作者" />
         </Col>
         <Col :sm="1" :md="2"></Col>
       </Row>
@@ -25,12 +26,21 @@
         name: "Home.vue",
       data () {
         return {
-          msg: 'Welcome to Your Vue.js App'
+          msg: 'Welcome to Your Vue.js App',
+          book: ''
         }
       },
       methods: {
         jumpLogin () {
           this.$router.push({ path:'/login' })
+        },
+        jumpBookshelf() {
+          this.$router.push({ path:'/bookshelf' })
+        },
+        jumpBooks() {
+          if (this.book){
+            this.$router.push({ path:'/list/'+this.book })
+          }
         }
       }
     }
@@ -114,6 +124,12 @@
     position: absolute;
     right: 1.5rem;
     top: 1.5rem;
+  }
+  .book-user1 {
+    font-size: 2.6rem !important;
+    position: absolute;
+    right: 4.5rem;
+    top: 1.58rem;
   }
 
 

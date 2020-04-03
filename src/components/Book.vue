@@ -109,9 +109,9 @@
       <b class="book-latel1">字体样式</b>
       <Row>
         <Col span="3">&nbsp;</Col>
-        <Col span="6" class="book-font-style">111</Col>
-        <Col span="6" class="book-font-style1">111</Col>
-        <Col span="6" class="book-font-style2">111</Col>
+        <Col span="6" class="book-font-style">样式一</Col>
+        <Col span="6" class="book-font-style1">样式二</Col>
+        <Col span="6" class="book-font-style2">样式三</Col>
         <Col span="3">&nbsp;</Col>
       </Row>
       <b class="book-latel1">字体大小</b>
@@ -130,6 +130,13 @@
         <Col span="6" class="book-font-style2">111</Col>
         <Col span="3">&nbsp;</Col>
       </Row>
+      <b class="book-latel1">字体颜色</b>
+      <Row>
+        <Col span="9">&nbsp;</Col>
+        <Col span="8">
+          <ColorPicker v-model="color6" @on-change="setFontColor()" />
+        </Col>
+      </Row>
     </Drawer>
   </div>
 </template>
@@ -143,7 +150,8 @@
       return {
         value1: false,
         value2: false,
-        imgUrl_require: require('.././assets/img/ok.png')
+        imgUrl_require: require('.././assets/img/ok.png'),
+        color6: '#000000'
       }
     },
     mounted: function () {
@@ -177,6 +185,9 @@
         document.getElementById('book-color-'+n).innerHTML = html;
         document.getElementById('book-floor').style.background = str;
         document.getElementsByTagName('body')[0].className = color; //设置为新的
+      },
+      setFontColor() {
+        document.getElementById('book-content').style.color = this.color6;
       }
     },
     destroyed: function () {

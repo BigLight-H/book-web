@@ -179,6 +179,8 @@
             </p>
             <p>尚未拥有账户？
               <a href="/register" class="">注册</a>
+              &nbsp;&nbsp;&nbsp;
+              <a href="/" class="">回到主页</a>
             </p>
           </div>
         </FormItem>

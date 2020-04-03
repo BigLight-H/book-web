@@ -10,7 +10,7 @@
         </Col>
         <Col :xs="24" :lg="19" class="book-list-synopsis">
           <div>
-            <h3>圣墟</h3>
+            <h3>哈哈哈</h3>
             <p>作者：辰东</p>
           </div>
           <hr>
@@ -58,10 +58,34 @@
 </template>
 
 <script>
+  import axios from 'axios'
   import BookNav from "./BookNav";
   export default {
     name: "BookList",
     components: {BookNav},
+    data () {
+      return {
+        link: this.$route.params.link,
+        id: this.$route.params.id,
+      }
+    },
+    created() {
+      // axios.get('http://127.0.0.1:8088/home/'+this.name).then((res) => {
+      //   res = res.data;
+      //   if (res.errno === ERR_OK) {
+      //     this.themeList=res.data;
+      //   }
+      // }).catch((error) => {
+      //   console.warn(error)
+      // })
+      var data = JSON.parse(sessionStorage.getItem('signoutShow'));//获取session
+      sessionStorage.removeItem('signoutShow');//删除session
+      axios.post('http://127.0.0.1:8088/book/list',this.$qs.stringify(data)).then(response => {
+        alert(response.data)
+      }, response => {
+        alert("出错啦！")
+      })
+    }
   }
 </script>
 

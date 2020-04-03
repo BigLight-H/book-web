@@ -6,6 +6,7 @@ import Register from '@/components/Register'
 import Bookshelf from '@/components/Bookshelf'
 import BookList from '@/components/BookList'
 import Book from '@/components/Book'
+import List from '@/components/List'
 
 Vue.use(Router);
 
@@ -40,6 +41,11 @@ export default new Router({
       path: '/book',
       name: '文章页',
       component: Book
+    },
+    {
+      path: '/list/:name',
+      name: '搜索结果页',
+      component: List
     }
   ],
   mode:'history'

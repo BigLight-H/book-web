@@ -179,6 +179,8 @@
           <div class="dev-sign-main-aside-tip" style="text-align: center">
             <p>已拥有账号？
               <a href="/login" class="">登录</a>
+              &nbsp;&nbsp;&nbsp;
+              <a href="/" class="">回到主页</a>
             </p>
           </div>
         </FormItem>
