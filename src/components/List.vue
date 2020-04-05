@@ -14,13 +14,14 @@
             <Col :xs="{ span: 16}" :lg="{ span: 20}" style="margin-top: 2rem;">
               <div @click="jumpBookLists(item.id, item.link)">
                 <h4>{{item.name}}</h4>
-                <p class="book-list-zj">最新章节:{{item.id}}</p>
+                <p class="book-list-zj" v-if="item.new_list">最新章节:{{item.new_list}}</p>
                 <p>作者:{{item.uname}}</p>
                 <p class="book-list-come">来源:{{item.link}}</p>
               </div>
             </Col>
-            <Col :xs="{ span: 8}" :lg="{ span: 4}">
-              <img src="http://www.vipzw.com/files/article/image/1/1162/1162s.jpg" alt="" class="book-list-images">
+            <Col :xs="{ span: 8}" :lg="{ span: 4}" >
+              <img v-if="item.img" :src="item.img" alt="" class="book-list-images">
+              <img v-if="! item.img" src="http://www.vipzw.com/files/article/image/41/41902/41902s.jpg" alt="" class="book-list-images">
             </Col>
           </Col>
         </div>
@@ -37,29 +38,34 @@
     components: {BookNav},
     data () {
       return {
-        name: this.$route.params.name,
+        name: '',
         dataList:[]
       }
     },
     created() {
-      axios.get('http://127.0.0.1:8088/home/'+this.name).then((res) => {
+      let book_name = sessionStorage.getItem('book_name')
+      this.name = book_name
+      axios.get('http://127.0.0.1:8088/home/'+book_name).then((res) => {
         if (res.data.data.length > 0) {
           this.dataList=res.data.data;
+          // sessionStorage.removeItem('book_name');//删除session
         }
-        console.log(this.dataList);
       }).catch((error) => {
         console.warn(error)
       })
     },
     methods:{
       searchBooks() {
-        axios.get('http://127.0.0.1:8088/home/'+this.name).then((res) => {
-          if (res.data.data.length > 0) {
-            this.dataList=res.data.data;
-          }
-        }).catch((error) => {
-          console.warn(error)
-        })
+        if (this.name) {
+          axios.get('http://127.0.0.1:8088/home/'+this.name).then((res) => {
+            if (res.data.data.length > 0) {
+              sessionStorage.setItem("book_name", this.name);
+              this.dataList=res.data.data;
+            }
+          }).catch((error) => {
+            console.warn(error)
+          })
+        }
       },
       jumpBookLists(id, str) {
         let info = {link: str, id: id};

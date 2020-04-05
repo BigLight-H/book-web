@@ -39,7 +39,8 @@
         },
         jumpBooks() {
           if (this.book){
-            this.$router.push({ path:'/list/'+this.book })
+            sessionStorage.setItem("book_name", this.book);
+            this.$router.push({ path:'/list' })
           }
         }
       }

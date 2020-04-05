@@ -3,58 +3,14 @@
     <book-nav></book-nav>
     <Row class="book-content" id="book-content">
         <Col :xs="{ span: 2}" :lg="{ span: 4}">&nbsp;</Col>
-        <Col :xs="{ span: 20}" :lg="{ span: 16}" class="book-content-child" >
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
-          <p>ddddddddddd</p>
+        <Col :xs="{ span: 20}" :lg="{ span: 16}" class="book-content-child">
+          <tbody v-html="content">{{ content }}</tbody>
         </Col>
         <Col :xs="{ span: 2}" :lg="{ span: 4}">&nbsp;</Col>
       </Row>
     <Row class="book-floor" id="book-floor">
       <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 5, offset: 6  }" class="book-page">
-        <Button type="info">上一章</Button>
+        <Button type="info" @click="sPage()">上一章</Button>
       </Col>
       <Col :xs="{ span: 3, offset: 3 }" :lg="{ span: 1, offset: 0}" class="book-icon">
         <Icon type="md-list" size="18"  @click="value1 = true"/>
@@ -65,16 +21,11 @@
         <p  @click="value2 = true">设置</p>
       </Col>
       <Col :xs="{ span: 5, offset: 3 }" :lg="{ span: 5, offset: 4 }" class="book-page">
-        <Button type="info">下一章</Button>
+        <Button type="info" @click="xPage()">下一章</Button>
       </Col>
     </Row>
     <Drawer title="全部章节" placement="left" :closable="false" v-model="value1">
-      <a class="book-left-list">Some contentsd11111ddddddddddd111111</a>
-      <a class="book-left-list">Some contents...</a>
-      <a class="book-left-list">Some contents...</a>
-      <a class="book-left-list">Some contents...</a>
-      <a class="book-left-list">Some contents...</a>
-      <a class="book-left-list">Some contents...</a>
+      <a class="book-left-list" v-for="(item,index) in list" :key="index" @click="jumpBookDetail(item.id, item.link)">{{ item.name }}</a>
     </Drawer>
     <Drawer title="设置" :closable="false" v-model="value2">
       <b class="book-latel">背景主题</b>
@@ -143,6 +94,7 @@
 
 <script>
   import BookNav from "./BookNav";
+  import axios from "axios";
   export default {
     name: "Book",
     components: {BookNav},
@@ -151,8 +103,39 @@
         value1: false,
         value2: false,
         imgUrl_require: require('.././assets/img/ok.png'),
-        color6: '#000000'
+        color6: '#000000',
+        content:'',
+        x_page:'',
+        s_page:'',
+        id:'',
+        list:{},
       }
+    },
+    created(){
+      let data = JSON.parse(sessionStorage.getItem('book_content'));//获取session
+      this.id = data['id'];
+      axios.get('http://127.0.0.1:8088/book/detail',{
+        params:{
+          id:data['id'],
+          link:data['link']
+        }
+      }).then((response)=>{
+        let res = response.data;
+        this.content = res.data[0].content;
+        this.x_page = res.data[0].x_page;
+        this.s_page = res.data[0].s_page;
+        axios.get('http://127.0.0.1:8088/book/list',{
+          params:{
+            id:this.id,
+            link:res.data[0].list
+          }
+        }).then((response)=>{
+          let res_ = response.data;
+          this.list = res_.data;
+        });
+      });
+
+
     },
     mounted: function () {
         window.addEventListener('scroll', this.handleScroll, true);  // 监听（绑定）滚轮滚动事件
@@ -188,6 +171,58 @@
       },
       setFontColor() {
         document.getElementById('book-content').style.color = this.color6;
+      },
+      sPage() {
+        if (this.s_page !== this.list) {
+          axios.get('http://127.0.0.1:8088/book/detail',{
+            params:{
+              id:this.id,
+              link:this.s_page
+            }
+          }).then((response)=>{
+            let res = response.data;
+            this.content = res.data[0].content;
+            this.x_page = res.data[0].x_page;
+            this.s_page = res.data[0].s_page;
+          });
+          let info = {link: this.s_page, id: this.id};
+          sessionStorage.setItem("book_content",JSON.stringify(info));
+        }
+      },
+      xPage() {
+        if (this.x_page) {
+          axios.get('http://127.0.0.1:8088/book/detail',{
+            params:{
+              id:this.id,
+              link:this.x_page
+            }
+          }).then((response)=>{
+            let res = response.data;
+            this.content = res.data[0].content;
+            this.x_page = res.data[0].x_page;
+            this.s_page = res.data[0].s_page;
+          });
+          let info = {link: this.x_page, id: this.id};
+          sessionStorage.setItem("book_content",JSON.stringify(info));
+        }
+      },
+      jumpBookDetail(id, link) {
+        axios.get('http://127.0.0.1:8088/book/detail',{
+          params:{
+            id:id,
+            link:link
+          }
+        }).then((response)=>{
+          let res = response.data;
+          this.content = res.data[0].content;
+          this.x_page = res.data[0].x_page;
+          this.s_page = res.data[0].s_page;
+        });
+        let info = {link: link, id: id};
+        sessionStorage.setItem("book_content",JSON.stringify(info));
+        this.value1 = false;
+        let scrollObj = document.getElementById("book-content"); // 滚动区域
+        scrollObj.scrollTop = 0; // div 到头部的距离
       }
     },
     destroyed: function () {

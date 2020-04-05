@@ -43,7 +43,7 @@ export default new Router({
       component: Book
     },
     {
-      path: '/list/:name',
+      path: '/list',
       name: '搜索结果页',
       component: List
     }
