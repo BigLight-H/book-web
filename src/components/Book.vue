@@ -2,6 +2,7 @@
   <div>
     <book-nav></book-nav>
     <Row class="book-content" id="book-content">
+        <h3 class="book-detail-title">{{ book_title }}</h3>
         <Col :xs="{ span: 2}" :lg="{ span: 4}">&nbsp;</Col>
         <Col :xs="{ span: 20}" :lg="{ span: 16}" class="book-content-child">
           <tbody v-html="content">{{ content }}</tbody>
@@ -110,7 +111,8 @@
         id:'',
         list:{},
         font_size:15,
-        font_high:18
+        font_high:18,
+        book_title:''
       }
     },
     created(){
@@ -126,6 +128,7 @@
         this.content = res.data[0].content;
         this.x_page = res.data[0].x_page;
         this.s_page = res.data[0].s_page;
+        this.book_title = res.data[0].name;
         axios.get('http://127.0.0.1:8088/book/list',{
           params:{
             id:this.id,
@@ -209,6 +212,7 @@
             this.content = res.data[0].content;
             this.x_page = res.data[0].x_page;
             this.s_page = res.data[0].s_page;
+            this.book_title = res.data[0].name;
           });
           let info = {link: this.s_page, id: this.id};
           sessionStorage.setItem("book_content",JSON.stringify(info));
@@ -226,6 +230,7 @@
             this.content = res.data[0].content;
             this.x_page = res.data[0].x_page;
             this.s_page = res.data[0].s_page;
+            this.book_title = res.data[0].name;
           });
           let info = {link: this.x_page, id: this.id};
           sessionStorage.setItem("book_content",JSON.stringify(info));
@@ -242,6 +247,7 @@
           this.content = res.data[0].content;
           this.x_page = res.data[0].x_page;
           this.s_page = res.data[0].s_page;
+          this.book_title = res.data[0].name;
         });
         let info = {link: link, id: id};
         sessionStorage.setItem("book_content",JSON.stringify(info));
@@ -398,6 +404,10 @@
     border-radius: 50%;
     text-align: center;
     padding-top: 3px;
+  }
+  .book-detail-title {
+    text-align: center;
+    padding: 1rem;
   }
   .color-1 {
     background: #fff8f1;
