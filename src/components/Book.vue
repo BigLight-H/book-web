@@ -112,7 +112,8 @@
         list:{},
         font_size:15,
         font_high:18,
-        book_title:''
+        book_title:'',
+        list_link:''
       }
     },
     created(){
@@ -129,6 +130,7 @@
         this.x_page = res.data[0].x_page;
         this.s_page = res.data[0].s_page;
         this.book_title = res.data[0].name;
+        this.list_link = res.data[0].list;
         axios.get('http://127.0.0.1:8088/book/list',{
           params:{
             id:this.id,
@@ -201,7 +203,7 @@
         localStorage.setItem('book_detail_font', this.color6);
       },
       sPage() {
-        if (this.s_page !== this.list) {
+        if (this.s_page !== this.list_link) {
           axios.get('http://127.0.0.1:8088/book/detail',{
             params:{
               id:this.id,
@@ -219,7 +221,7 @@
         }
       },
       xPage() {
-        if (this.x_page) {
+        if (this.x_page !== this.list_link) {
           axios.get('http://127.0.0.1:8088/book/detail',{
             params:{
               id:this.id,
@@ -231,6 +233,7 @@
             this.x_page = res.data[0].x_page;
             this.s_page = res.data[0].s_page;
             this.book_title = res.data[0].name;
+            this.list_link = res.data[0].list;
           });
           let info = {link: this.x_page, id: this.id};
           sessionStorage.setItem("book_content",JSON.stringify(info));
@@ -248,6 +251,7 @@
           this.x_page = res.data[0].x_page;
           this.s_page = res.data[0].s_page;
           this.book_title = res.data[0].name;
+          this.list_link = res.data[0].list;
         });
         let info = {link: link, id: id};
         sessionStorage.setItem("book_content",JSON.stringify(info));
