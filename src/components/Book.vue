@@ -60,25 +60,25 @@
       <b class="book-latel1">字体样式</b>
       <Row>
         <Col span="3">&nbsp;</Col>
-        <Col span="6" class="book-font-style">样式一</Col>
-        <Col span="6" class="book-font-style1">样式二</Col>
-        <Col span="6" class="book-font-style2">样式三</Col>
+        <Col span="6" class="book-font-style"  id="book-font-style-0" ><font @click="changeFontamilyFont('ZJJ', 0)">默认</font></Col>
+        <Col span="6" class="book-font-style1" id="book-font-style-1"><font @click="changeFontamilyFont('PZH', 1)">样式二</font></Col>
+        <Col span="6" class="book-font-style2" id="book-font-style-2"><font @click="changeFontamilyFont('XWXKT', 2)">样式三</font></Col>
         <Col span="3">&nbsp;</Col>
       </Row>
       <b class="book-latel1">字体大小</b>
       <Row>
         <Col span="3">&nbsp;</Col>
-        <Col span="6" class="book-font-style">111</Col>
-        <Col span="6" class="book-font-style1">111</Col>
-        <Col span="6" class="book-font-style2">111</Col>
+        <Col span="6" class="book-font-style"><b @click="changeBookFontSizeSub(font_size)">A-</b></Col>
+        <Col span="6" class="book-font-style1">{{ font_size }}</Col>
+        <Col span="6" class="book-font-style2"><b @click="changeBookFontSizeAdd(font_size)">A+</b></Col>
         <Col span="3">&nbsp;</Col>
       </Row>
       <b class="book-latel1">字体行高</b>
       <Row>
         <Col span="3">&nbsp;</Col>
-        <Col span="6" class="book-font-style">111</Col>
-        <Col span="6" class="book-font-style1">111</Col>
-        <Col span="6" class="book-font-style2">111</Col>
+        <Col span="6" class="book-font-style"><b @click="changeBookFontHighSub(font_high)">H-</b></Col>
+        <Col span="6" class="book-font-style1">{{ font_high }}</Col>
+        <Col span="6" class="book-font-style2"><b @click="changeBookFontHighAdd(font_high)">H+</b></Col>
         <Col span="3">&nbsp;</Col>
       </Row>
       <b class="book-latel1">字体颜色</b>
@@ -109,6 +109,8 @@
         s_page:'',
         id:'',
         list:{},
+        font_size:15,
+        font_high:18
       }
     },
     created(){
@@ -134,11 +136,32 @@
           this.list = res_.data;
         });
       });
-
-
     },
     mounted: function () {
         window.addEventListener('scroll', this.handleScroll, true);  // 监听（绑定）滚轮滚动事件
+        let book_color = JSON.parse(localStorage.getItem('book_color'));//获取已经设置的背景
+        if (book_color['n']) {
+          this.changeBookColor(book_color['n'], book_color['color'], book_color['str']);
+        }
+        let bk_font = localStorage.getItem('book_detail_font');//获取已经设置的字体颜色
+        if (bk_font) {
+          document.getElementById('book-content').style.color = bk_font;
+          this.color6 = bk_font;
+        }
+        let book_detail_fonts_family = JSON.parse(localStorage.getItem('book_detail_fonts_family'));//获取已经设置的字体样式
+        if (book_detail_fonts_family['n']) {
+          this.changeFontamilyFont(book_detail_fonts_family['font'], book_detail_fonts_family['n']);
+        }
+        let fontSize = localStorage.getItem('book_detail_fonts_size');//修改字体大小
+        if (fontSize) {
+          document.getElementById("book-content").style.fontSize = fontSize+'px';
+          this.font_size = fontSize;
+        }
+        let fontHigh = localStorage.getItem('book_detail_fonts_high');//修改字体行高
+        if (fontHigh) {
+          document.getElementById("book-content").style.lineHeight = fontHigh+'px';
+          this.font_high = fontHigh;
+        }
     },
     methods: {
       handleScroll: function () {
@@ -168,9 +191,11 @@
         document.getElementById('book-color-'+n).innerHTML = html;
         document.getElementById('book-floor').style.background = str;
         document.getElementsByTagName('body')[0].className = color; //设置为新的
+        localStorage.setItem('book_color', JSON.stringify({n:n,color:color,str:str}));
       },
       setFontColor() {
         document.getElementById('book-content').style.color = this.color6;
+        localStorage.setItem('book_detail_font', this.color6);
       },
       sPage() {
         if (this.s_page !== this.list) {
@@ -223,6 +248,39 @@
         this.value1 = false;
         let scrollObj = document.getElementById("book-content"); // 滚动区域
         scrollObj.scrollTop = 0; // div 到头部的距离
+      },
+      changeFontamilyFont(font, n) {
+        for (let i = 0; i < 3; i++) {
+          document.getElementById("book-font-style-"+i).style.background = '#fff';
+        }
+        document.getElementById("book-font-style-"+n).style.background = '#bfbfbf';
+        document.getElementById("book-content").style.fontFamily = font;
+        let info = {font:font,n:n};
+        localStorage.setItem('book_detail_fonts_family', JSON.stringify(info));
+      },
+      changeBookFontSizeSub(font) {
+        let size = Number(font)-1;
+        document.getElementById("book-content").style.fontSize = size+'px';
+        this.font_size = size;
+        localStorage.setItem('book_detail_fonts_size', size);
+      },
+      changeBookFontSizeAdd(font) {
+        let size = Number(font)+1;
+        document.getElementById("book-content").style.fontSize = size+'px';
+        this.font_size = size;
+        localStorage.setItem('book_detail_fonts_size', size);
+      },
+      changeBookFontHighAdd(high) {
+        let hight = Number(high)+1;
+        document.getElementById("book-content").style.lineHeight = hight+'px';
+        this.font_high = hight;
+        localStorage.setItem('book_detail_fonts_high', hight);
+      },
+      changeBookFontHighSub(high) {
+        let hight = Number(high)-1;
+        document.getElementById("book-content").style.lineHeight = hight+'px';
+        this.font_high = hight;
+        localStorage.setItem('book_detail_fonts_high', hight);
       }
     },
     destroyed: function () {
@@ -258,6 +316,9 @@
     bottom: 3rem !important;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    font-family: ZJJ;
+    font-size: 15px;
+    line-height: 18px;
   }
   .book-content::-webkit-scrollbar {
     display: none !important;
@@ -279,28 +340,43 @@
     position: relative;
   }
   .book-font-style {
-    border-left: 1px solid;
-    border-top: 1px solid;
-    border-bottom: 1px solid;
+    border-left: 1px solid #c5c5c5;
+    border-top: 1px solid #c5c5c5;
+    border-bottom: 1px solid #c5c5c5;
     border-radius: 5px 0 0 5px;
     text-align: center;
     height: 2rem;
     line-height: 1.8rem;
   }
+  .book-font-style font {
+    display: block;
+  }
+  .book-font-style b {
+    display: block;
+  }
+  #book-font-style-0 {
+    background: #bfbfbf;
+  }
   .book-font-style1 {
-    border: 1px solid;
+    border: 1px solid #c5c5c5;
     text-align: center;
     height: 2rem;
     line-height: 1.8rem;
   }
   .book-font-style2 {
-    border-right: 1px solid;
-    border-top: 1px solid;
-    border-bottom: 1px solid;
+    border-right: 1px solid #c5c5c5;
+    border-top: 1px solid #c5c5c5;
+    border-bottom: 1px solid #c5c5c5;
     border-radius: 0 5px 5px 0;
     text-align: center;
     height: 2rem;
     line-height: 1.8rem;
+  }
+  .book-font-style2 font {
+    display: block;
+  }
+  .book-font-style2 b {
+    display: block;
   }
   .book-latel {
     font-size: 1rem;

@@ -79,8 +79,15 @@
     text-align: center;
     line-height: 8rem;
     font-size: 4rem;
-    font-family: fantasy;
+    font-family: SMT;
   }
+  @media screen and (max-width: 768px) {
+    .book-title {
+      font-size: 3rem;
+    }
+  }
+
+
   .bounce-in-bottom {
     animation: bounce-in-bottom 1.1s both;
   }

@@ -52,7 +52,7 @@
         }
       }).catch((error) => {
         console.warn(error)
-      })
+      });
     },
     methods:{
       searchBooks() {

@@ -29,6 +29,7 @@
 </template>
 
 <script>
+  import("./assets/font/font.css")
   export default {
     name: 'App',
   }
