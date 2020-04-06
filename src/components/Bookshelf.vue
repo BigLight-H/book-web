@@ -8,7 +8,7 @@
       <Col :xs="{ span: 5 }" :md="{ span: 4}">
         <div>
           <Badge :count="3" class="swing-in-bottom-bck">
-            <img src="https://bkimg.cdn.bcebos.com/pic/72f082025aafa40fdd59b789a464034f79f019c2?x-bce-process=image/resize,m_lfit,w_268,limit_1/format,f_jpg" alt="" class="demo-badge">
+            <img src="http://www.vipzw.com/files/article/image/41/41902/41902s.jpg" alt="" class="demo-badge">
             <p class="bookshelf-title">hahah22222222222222222222222222222222222222222222222</p>
           </Badge>
         </div>
@@ -16,7 +16,7 @@
       <Col :xs="{ span: 5, offset: 1 }" :md="{ span: 4, offset: 2 }">
         <div>
           <Badge :count="3" class="swing-in-bottom-bck">
-            <img src="https://bkimg.cdn.bcebos.com/pic/72f082025aafa40fdd59b789a464034f79f019c2?x-bce-process=image/resize,m_lfit,w_268,limit_1/format,f_jpg" alt="" class="demo-badge">
+            <img src="http://www.vipzw.com/files/article/image/41/41902/41902s.jpg" alt="" class="demo-badge">
             <p class="bookshelf-title">hahah22222222222222222222222222222222222222222222222</p>
           </Badge>
         </div>
