@@ -35,7 +35,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 9999;
+    z-index: 1;
     right: 0;
   }
 </style>

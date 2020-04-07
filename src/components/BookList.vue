@@ -16,9 +16,9 @@
           <hr>
           <div>{{ item.synopsis }}</div>
           <div style="margin-top: .5rem">
-            <Button type="info">加入书签</Button>
+            <Button type="info" @click="addBookshelfList">加入书签</Button>
             &nbsp;&nbsp;
-            <Button type="success">立即阅读</Button>
+            <Button type="success" @click="booksRead">立即阅读</Button>
           </div>
         </Col>
       </Col>
@@ -38,6 +38,8 @@
 
 <script>
   import axios from 'axios'
+  axios.defaults.baseURL="/api";
+  import qs from 'qs';
   import BookNav from "./BookNav";
   export default {
     name: "BookList",
@@ -57,7 +59,8 @@
         }
       }).then((response)=>{
         let res = response.data;
-        this.data = res.data
+        this.data = res.data;
+        sessionStorage.setItem("bookshelf_data_links",res.data[0].link);
       });
       axios.get('http://127.0.0.1:8088/book/synopsis',{
         params:{
@@ -66,7 +69,17 @@
         }
       }).then((response)=>{
         let res1 = response.data;
-        this.title = res1.data
+        this.title = res1.data;
+        let src = res1.data[0];
+        let info_src = {
+          id:data['id'],
+          img:src.img,
+          domain:data['link'],
+          renew_time:src.renew_time,
+          writer:src.writer,
+          name:src.name
+        };
+        sessionStorage.setItem("bookshelf_data",JSON.stringify(info_src));
       });
     },
     methods: {
@@ -74,6 +87,53 @@
         let infos = {link: link, id: id};
         sessionStorage.setItem("book_content",JSON.stringify(infos));
         this.$router.push({ path:'/book' })
+      },
+      addBookshelfList() {
+        let data = JSON.parse(sessionStorage.getItem('bookshelf_data'));//获取session
+        let links = sessionStorage.getItem('bookshelf_data_links');//获取session
+        let token = sessionStorage.getItem('book_login_token');//获取token
+        if (token) {
+          let postData = qs.stringify({
+            id:data['id'],
+            link:links,
+            img:data['img'],
+            domain:data['domain'],
+            renew_time:data['renew_time'],
+            writer:data['writer'],
+            name:data['name']
+          });
+          axios({
+            method: 'post',
+            url:'/user/add/books',
+            data:postData,
+            headers:{
+              'Authorization':'Bearer '+token
+            }
+          }).then((res)=>{
+            if (res.data.Status == -1) {
+              this.$Message.error({
+                content: '登录已过期,请重新登录!',
+                duration: 3
+              });
+              this.$router.push({ path:'/login' });
+            } else if (res.data.Status == 1) {
+              this.$Message.success('添加成功!');
+            } else {
+              this.$Message.warning(res.data.Msg);
+            }
+          });
+        } else {
+          this.$Message.error({
+            content: '登录后可添加!',
+            duration: 3
+          });
+          this.$router.push({ path:'/login' });
+        }
+      },
+      booksRead() {
+        let data = JSON.parse(sessionStorage.getItem('bookshelf_data'));//获取session
+        let links = sessionStorage.getItem('bookshelf_data_links');//获取session
+        this.jumpBookContent(data['id'], links);
       }
     }
   }

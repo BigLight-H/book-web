@@ -189,6 +189,9 @@
   </div>
 </template>
 <script>
+  import axios from 'axios'
+  axios.defaults.baseURL="/api";
+  import qs from 'qs';
   export default {
     data () {
       return {
@@ -212,7 +215,8 @@
       handleSubmit (name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            this.$Message.success('提交成功!')
+            this.loginUser();
+            //this.$Message.success('提交成功!')
           } else {
             this.$Message.error('表单验证失败!')
           }
@@ -220,6 +224,25 @@
       },
       handleReset (name) {
         this.$refs[name].resetFields();
+      },
+      loginUser() {
+        let postData = qs.stringify({
+          name:this.loginData.acct,
+          pwd:this.loginData.pass,
+        });
+        axios({
+          method: 'post',
+          url:'/login',
+          data:postData
+        }).then((res)=>{
+          if(res.data.Status) {
+            console.log(res.data);
+            sessionStorage.setItem("book_login_token",res.data.Msg);
+            this.$router.push({ path:'/bookshelf' });
+          } else {
+            this.$Message.warning(res.data.Msg);
+          }
+        });
       }
     }
   }

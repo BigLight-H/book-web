@@ -12,11 +12,20 @@
 </template>
 
 <script>
+  import axios from 'axios'
+  axios.defaults.baseURL="/api";
+  import qs from 'qs';
     export default {
         name: "BookDetailNav",
         methods:{
           back(){
-            this.confirm();
+            let token = sessionStorage.getItem('book_login_token');//获取token
+            let data = JSON.parse(sessionStorage.getItem('bookshelf_data'));//获取session
+            if (token) {
+              this.examineBook(token, data['domain'])
+            } else {
+              this.$router.go(-1);//返回上一层
+            }
           },
           home(){
             this.$router.push({ path:'/' })
@@ -26,16 +35,76 @@
           },
           confirm () {
             this.$Modal.confirm({
-              title: 'Title',
-              content: '<p>Content of dialog</p><p>Content of dialog</p>',
+              title: '友情提示',
+              content: '<p>该书本未在书架中</p><p>是否加入书架?</p>',
               onOk: () => {
+                this.addBookshelfList();
                 this.$router.go(-1);//返回上一层
               },
               onCancel: () => {
                 this.$router.go(-1);//返回上一层
               }
             });
-          }
+          },
+          examineBook(token, links) {
+            axios.get('/user/verification/books',{
+              params:{
+                domain:links
+              },
+              headers:{
+                'Authorization':'Bearer '+token
+              }
+            }).then((response)=>{
+              if(response.data.Status){
+                this.confirm();
+              }else {
+                this.$router.go(-1);//返回上一层
+              }
+            });
+
+          },
+          addBookshelfList() {
+            let data = JSON.parse(sessionStorage.getItem('bookshelf_data'));//获取session
+            let links = sessionStorage.getItem('bookshelf_data_links');//获取session
+            let token = sessionStorage.getItem('book_login_token');//获取token
+            if (token) {
+              let postData = qs.stringify({
+                id:data['id'],
+                link:links,
+                img:data['img'],
+                domain:data['domain'],
+                renew_time:data['renew_time'],
+                writer:data['writer'],
+                name:data['name']
+              });
+              axios({
+                method: 'post',
+                url:'/user/add/books',
+                data:postData,
+                headers:{
+                  'Authorization':'Bearer '+token
+                }
+              }).then((res)=>{
+                if (res.data.Status == -1) {
+                  this.$Message.error({
+                    content: '登录已过期,请重新登录!',
+                    duration: 3
+                  });
+                  this.$router.push({ path:'/login' });
+                } else if (res.data.Status == 1) {
+                  this.$Message.success('添加成功!');
+                } else {
+                  this.$Message.warning(res.data.Msg);
+                }
+              });
+            } else {
+              this.$Message.error({
+                content: '登录后可添加!',
+                duration: 3
+              });
+              this.$router.push({ path:'/login' });
+            }
+          },
         }
     }
 </script>

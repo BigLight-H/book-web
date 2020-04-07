@@ -162,7 +162,7 @@
       <div class="login-title">
         <h2>用户注册</h2>
       </div>
-      <Form ref="loginData" :model="registerData" :rules="ruleRegisterValidate">
+      <Form ref="registerData" :model="registerData" :rules="ruleRegisterValidate">
         <FormItem label="用户名（昵称，不可修改）" prop="name">
           <Input prefix="ios-contact" type="text" v-model="registerData.name" placeholder="请输入用户名"></Input>
         </FormItem>
@@ -189,6 +189,9 @@
   </div>
 </template>
 <script>
+  import axios from 'axios'
+  axios.defaults.baseURL="/api";
+  import qs from 'qs';
   export default {
     data () {
       return {
@@ -214,24 +217,32 @@
       }
     },
     methods: {
-      handleRegisterSubmit (name) {
-        this.$refs[name].validate((valid) => {
+      handleRegisterSubmit (registerData) {
+        this.$refs[registerData].validate((valid) => {
           if (valid) {
-            this.$Message.success('提交成功!')
+            this.registerUser();
           } else {
             this.$Message.error('表单验证失败!')
           }
         })
       },
-      sendEmail: function() {
-        var regEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (this.ruleRegisterValidate.acct != '' && !regEmail.test(this.ruleRegisterValidate.acct)) {
-          this.$message({
-            message: '邮箱格式不正确',
-            type: 'error'
-          });
-          this.ruleRegisterValidate.acct = ''
-        }
+      registerUser() {
+        let postData = qs.stringify({
+          name:this.registerData.name,
+          email:this.registerData.acct,
+          pwd:this.registerData.pass,
+        });
+        axios({
+          method: 'post',
+          url:'/register',
+          data:postData
+        }).then((res)=>{
+          if(res.data.Status) {
+            this.$router.push({ path:'/login' });
+          } else {
+            this.$Message.warning(res.data.Msg);
+          }
+        });
       }
     }
   }
