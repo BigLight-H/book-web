@@ -1,6 +1,6 @@
 <template>
   <div>
-    <book-nav></book-nav>
+    <book-detail-nav></book-detail-nav>
     <Row class="book-content" id="book-content">
         <h3 class="book-detail-title">{{ book_title }}</h3>
         <Col :xs="{ span: 2}" :lg="{ span: 4}">&nbsp;</Col>
@@ -94,11 +94,11 @@
 </template>
 
 <script>
-  import BookNav from "./BookNav";
+  import BookDetailNav from "./BookDetailNav";
   import axios from "axios";
   export default {
     name: "Book",
-    components: {BookNav},
+    components: {BookDetailNav},
     data () {
       return {
         value1: false,
@@ -218,6 +218,8 @@
           });
           let info = {link: this.s_page, id: this.id};
           sessionStorage.setItem("book_content",JSON.stringify(info));
+        } else {
+          this.sWarning()
         }
       },
       xPage() {
@@ -237,6 +239,8 @@
           });
           let info = {link: this.x_page, id: this.id};
           sessionStorage.setItem("book_content",JSON.stringify(info));
+        } else {
+          this.xWarning()
         }
       },
       jumpBookDetail(id, link) {
@@ -291,7 +295,13 @@
         document.getElementById("book-content").style.lineHeight = hight+'px';
         this.font_high = hight;
         localStorage.setItem('book_detail_fonts_high', hight);
-      }
+      },
+      sWarning () {
+        this.$Message.warning('这是第一页');
+      },
+      xWarning () {
+        this.$Message.warning('这是最后一页');
+      },
     },
     destroyed: function () {
       window.removeEventListener('scroll', this.handleScroll);   //  离开页面清除（移除）滚轮滚动事件

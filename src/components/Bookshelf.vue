@@ -1,49 +1,17 @@
 <template>
   <div>
     <book-nav></book-nav>
-    <Row>
+    <Row style="margin-top: 3rem;">
       <Col span="24" class="book-my-bookshelf tracking-in-expand-fwd">My Bookshelf</Col>
     </Row>
     <Row class="bookshelf-box">
-      <Col :xs="{ span: 5 }" :md="{ span: 4}">
-        <div>
-          <Badge :count="3" class="swing-in-bottom-bck">
-            <img src="http://www.vipzw.com/files/article/image/41/41902/41902s.jpg" alt="" class="demo-badge">
-            <p class="bookshelf-title">hahah22222222222222222222222222222222222222222222222</p>
-          </Badge>
-        </div>
-      </Col>
-      <Col :xs="{ span: 5, offset: 1 }" :md="{ span: 4, offset: 2 }">
-        <div>
-          <Badge :count="3" class="swing-in-bottom-bck">
-            <img src="http://www.vipzw.com/files/article/image/41/41902/41902s.jpg" alt="" class="demo-badge">
-            <p class="bookshelf-title">hahah22222222222222222222222222222222222222222222222</p>
-          </Badge>
-        </div>
-      </Col>
-      <Col :xs="{ span: 5, offset: 1 }" :md="{ span: 4, offset: 2 }">
-        <div>
-          <Badge :count="3" class="swing-in-bottom-bck">
-            <img src="https://bkimg.cdn.bcebos.com/pic/72f082025aafa40fdd59b789a464034f79f019c2?x-bce-process=image/resize,m_lfit,w_268,limit_1/format,f_jpg" alt="" class="demo-badge">
-            <p class="bookshelf-title">hahah22222222222222222222222222222222222222222222222</p>
-          </Badge>
-        </div>
-      </Col>
-      <Col :xs="{ span: 5, offset: 1 }" :md="{ span: 4, offset: 2 }">
-        <div>
-          <Badge :count="3" class="swing-in-bottom-bck">
-            <img src="https://bkimg.cdn.bcebos.com/pic/72f082025aafa40fdd59b789a464034f79f019c2?x-bce-process=image/resize,m_lfit,w_268,limit_1/format,f_jpg" alt="" class="demo-badge">
-            <p class="bookshelf-title">hahah22222222222222222222222222222222222222222222222</p>
-          </Badge>
-        </div>
-      </Col>
-      <Col :xs="{ span: 5, offset: 0 }" :md="{ span: 4, offset: 0 }">
-        <div>
-          <Badge :count="3" class="swing-in-bottom-bck">
-            <img src="https://bkimg.cdn.bcebos.com/pic/72f082025aafa40fdd59b789a464034f79f019c2?x-bce-process=image/resize,m_lfit,w_268,limit_1/format,f_jpg" alt="" class="demo-badge">
-            <p class="bookshelf-title">hahah22222222222222222222222222222222222222222222222</p>
-          </Badge>
-        </div>
+      <Col :xs="{ span: 22, offset: 1 }" :lg="{ span: 20, offset: 2 }">
+        <Col :xs="{ span: 7}" :lg="{ span: 3}" style="position: relative;margin-bottom: 1rem;">
+          <p class="bookshelf-title-num">3</p>
+          <img src="http://www.vipzw.com/files/article/image/41/41902/41902s.jpg" alt="" class="demo-badge">
+          <p class="bookshelf-title">hahah22222222222222222222222222222222222222222222222</p>
+        </Col>
+        <Col :xs="{ span: 1}" :lg="{ span: 1}">&nbsp;</Col>
       </Col>
     </Row>
   </div>
@@ -62,8 +30,8 @@
     text-align: center;
     padding: 1rem 0;
     font-size: 3.3rem;
-    font-family: fantasy;
     margin-bottom: 1rem;
+    font-family: SMT;
   }
   .demo-badge{
     width: 100%;
@@ -76,71 +44,25 @@
   .bookshelf-title {
     text-align: center;
     font-size: 12px;
-    width: 347px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    padding: .3rem 0;
   }
 
-  @media screen and (max-width: 1024px) {
-    .bookshelf-title {
-      text-align: center;
-      font-size: 12px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      width: 160px;
-    }
-  }
-
-  @media screen and (max-width: 768px) {
-    .bookshelf-title {
-      text-align: center;
-      font-size: 12px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      width: 121px;
-    }
-  }
-
-  @media screen and (max-width: 414px) {
-    .bookshelf-title {
-      text-align: center;
-      font-size: 12px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      width: 80px;
-    }
-  }
-
-  @media screen and (max-width: 375px) {
-    .bookshelf-title {
-      text-align: center;
-      font-size: 12px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      width: 72px;
-    }
-  }
-
-  @media screen and (max-width: 320px) {
-    .bookshelf-title {
-      text-align: center;
-      font-size: 12px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      width: 60px;
-    }
+  .bookshelf-title-num {
+    width: 1.5rem;
+    height: 1.5rem;
+    background: #f74848;
+    position: absolute;
+    right: -9px;
+    top: -9px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 1.5rem;
+    font-weight: bold;
+    color: #fff;
   }
 
   .bookshelf-box {

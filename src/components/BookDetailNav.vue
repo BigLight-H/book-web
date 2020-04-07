@@ -1,5 +1,5 @@
 <template>
-  <Row id="book-content-nav" class="book-nav-head">
+  <Row style="background: white;height: 3rem;" id="book-content-nav">
     <Col :xs="{ span: 6, offset: 1 }" :lg="{ span: 2, offset: 3 }" style="padding-top: .7rem;">
       <Icon type="ios-arrow-back" size="25" @click="back"/>
     </Col>
@@ -13,10 +13,10 @@
 
 <script>
     export default {
-        name: "BookNav",
+        name: "BookDetailNav",
         methods:{
           back(){
-            this.$router.go(-1);//返回上一层
+            this.confirm();
           },
           home(){
             this.$router.push({ path:'/' })
@@ -24,18 +24,22 @@
           bookshelf(){
             this.$router.push({ path:'/bookshelf' })
           },
+          confirm () {
+            this.$Modal.confirm({
+              title: 'Title',
+              content: '<p>Content of dialog</p><p>Content of dialog</p>',
+              onOk: () => {
+                this.$router.go(-1);//返回上一层
+              },
+              onCancel: () => {
+                this.$router.go(-1);//返回上一层
+              }
+            });
+          }
         }
     }
 </script>
 
 <style scoped>
-  .book-nav-head {
-    background: white;
-    height: 3rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-    right: 0;
-  }
+
 </style>

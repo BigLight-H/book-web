@@ -1,7 +1,7 @@
 <template>
   <div>
     <book-nav></book-nav>
-    <Row v-for="(item,index) in title" :key="index">
+    <Row v-for="(item,index) in title" :key="index" style="margin-top: 3rem;">
       <Col :xs="{ span: 22, offset: 1 }" :lg="{ span: 14, offset: 5 }"  class="book-list-title">
         <Col :xs="24" :lg="5" class="book-list-img">
           <Col :xs="10" :lg="24">
