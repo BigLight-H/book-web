@@ -6,22 +6,56 @@
     </Row>
     <Row class="bookshelf-box">
       <Col :xs="{ span: 22, offset: 1 }" :lg="{ span: 20, offset: 2 }">
-        <Col :xs="{ span: 7}" :lg="{ span: 3}" style="position: relative;margin-bottom: 1rem;">
-          <p class="bookshelf-title-num">3</p>
-          <img src="http://www.vipzw.com/files/article/image/41/41902/41902s.jpg" alt="" class="demo-badge">
-          <p class="bookshelf-title">hahah22222222222222222222222222222222222222222222222</p>
-        </Col>
-        <Col :xs="{ span: 1}" :lg="{ span: 1}">&nbsp;</Col>
+          <Col :xs="{ span: 7,  offset: 1, pull:1}" :lg="{ span: 3,  offset: 1, pull:1}" style="position: relative;margin-bottom: 1rem;" v-for="(item,index) in data" :key="index" @click.native="bookshelfJump(item.HubId, item.Link)">
+            <p class="bookshelf-title-num">3</p>
+            <img v-if="item.Img" :src="item.Img" class="demo-badge">
+            <img v-if="! item.Img" src="http://www.vipzw.com/files/article/image/41/41902/41902s.jpg" class="demo-badge">
+            <p class="bookshelf-title">{{ item.BookName }}</p>
+          </Col>
       </Col>
     </Row>
   </div>
 </template>
 
 <script>
+  import axios from 'axios'
+  axios.defaults.baseURL="/api";
   import BookNav from "./BookNav";
     export default {
         name: "Bookshelf",
         components: {BookNav},
+        data() {
+          return{
+            data:{}
+          }
+        },
+        created() {
+          let token = sessionStorage.getItem('book_login_token');//获取token
+          if (token) {
+            axios({
+              method: 'get',
+              url:'/user/books',
+              headers:{
+                'Authorization':'Bearer '+token
+              }
+            }).then((res)=>{
+              this.data = res.data
+            });
+          } else {
+            this.$Message.error({
+              content: '登录后可以进入书架!',
+              duration: 3
+            });
+            this.$router.push({ path:'/login' });
+          }
+        },
+        methods: {
+          bookshelfJump(hub_id, link) {
+            let infos = {link: link, id: hub_id};
+            sessionStorage.setItem("book_content",JSON.stringify(infos));
+            this.$router.push({ path:'/book' })
+          },
+        }
     }
 </script>
 
@@ -44,11 +78,10 @@
   .bookshelf-title {
     text-align: center;
     font-size: 12px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
     padding: .3rem 0;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
   }
 
   .bookshelf-title-num {

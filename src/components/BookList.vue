@@ -52,7 +52,7 @@
     },
     created() {
       let data = JSON.parse(sessionStorage.getItem('signoutShow'));//获取session
-      axios.get('http://127.0.0.1:8088/book/list',{
+      axios.get('/book/list',{
         params:{
           id:data['id'],
           link:data['link']
@@ -62,7 +62,7 @@
         this.data = res.data;
         sessionStorage.setItem("bookshelf_data_links",res.data[0].link);
       });
-      axios.get('http://127.0.0.1:8088/book/synopsis',{
+      axios.get('/book/synopsis',{
         params:{
           id:data['id'],
           link:data['link']

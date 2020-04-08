@@ -96,6 +96,8 @@
 <script>
   import BookDetailNav from "./BookDetailNav";
   import axios from "axios";
+  axios.defaults.baseURL="/api";
+  import qs from 'qs';
   export default {
     name: "Book",
     components: {BookDetailNav},
@@ -119,7 +121,8 @@
     created(){
       let data = JSON.parse(sessionStorage.getItem('book_content'));//获取session
       this.id = data['id'];
-      axios.get('http://127.0.0.1:8088/book/detail',{
+      sessionStorage.setItem("bookshelf_data_links",data['link']);
+      axios.get('/book/detail',{
         params:{
           id:data['id'],
           link:data['link']
@@ -131,7 +134,8 @@
         this.s_page = res.data[0].s_page;
         this.book_title = res.data[0].name;
         this.list_link = res.data[0].list;
-        axios.get('http://127.0.0.1:8088/book/list',{
+        this.saveBookLinks(data['link'], res.data[0].list);
+        axios.get('/book/list',{
           params:{
             id:this.id,
             link:res.data[0].list
@@ -208,7 +212,9 @@
       },
       sPage() {
         if (this.s_page !== this.list_link) {
-          axios.get('http://127.0.0.1:8088/book/detail',{
+          this.saveBookLinks(this.s_page, this.list_link);
+          sessionStorage.setItem("bookshelf_data_links",this.s_page);
+          axios.get('/book/detail',{
             params:{
               id:this.id,
               link:this.s_page
@@ -223,12 +229,14 @@
           let info = {link: this.s_page, id: this.id};
           sessionStorage.setItem("book_content",JSON.stringify(info));
         } else {
-          this.sWarning()
+          this.$Message.warning('这是第一页');
         }
       },
       xPage() {
         if (this.x_page !== this.list_link) {
-          axios.get('http://127.0.0.1:8088/book/detail',{
+          this.saveBookLinks(this.x_page, this.list_link);
+          sessionStorage.setItem("bookshelf_data_links",this.x_page);
+          axios.get('/book/detail',{
             params:{
               id:this.id,
               link:this.x_page
@@ -244,11 +252,13 @@
           let info = {link: this.x_page, id: this.id};
           sessionStorage.setItem("book_content",JSON.stringify(info));
         } else {
-          this.xWarning()
+          this.$Message.warning('这是最后一页');
         }
       },
       jumpBookDetail(id, link) {
-        axios.get('http://127.0.0.1:8088/book/detail',{
+        this.saveBookLinks(link, this.list_link);
+        sessionStorage.setItem("bookshelf_data_links",link);
+        axios.get('/book/detail',{
           params:{
             id:id,
             link:link
@@ -300,12 +310,25 @@
         this.font_high = hight;
         localStorage.setItem('book_detail_fonts_high', hight);
       },
-      sWarning () {
-        this.$Message.warning('这是第一页');
-      },
-      xWarning () {
-        this.$Message.warning('这是最后一页');
-      },
+      saveBookLinks(link,domain) {
+        let token = sessionStorage.getItem('book_login_token');//获取token
+        if (token){
+          let postData = qs.stringify({
+            link:link,
+            domain:domain,
+          });
+          axios({
+            method: 'post',
+            url:'/user/books/update',
+            data:postData,
+            headers:{
+              'Authorization':'Bearer '+token
+            }
+          }).then((res)=>{
+            console.log(res);
+          });
+        }
+      }
     },
     destroyed: function () {
       window.removeEventListener('scroll', this.handleScroll, true);   //  离开页面清除（移除）滚轮滚动事件

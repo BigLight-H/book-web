@@ -236,9 +236,8 @@
           data:postData
         }).then((res)=>{
           if(res.data.Status) {
-            console.log(res.data);
             sessionStorage.setItem("book_login_token",res.data.Msg);
-            this.$router.push({ path:'/bookshelf' });
+            this.$router.go(-1);//返回上一层
           } else {
             this.$Message.warning(res.data.Msg);
           }
