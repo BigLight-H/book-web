@@ -145,8 +145,10 @@
     mounted: function () {
         window.addEventListener('scroll', this.handleScroll, true);  // 监听（绑定）滚轮滚动事件
         let book_color = JSON.parse(localStorage.getItem('book_color'));//获取已经设置的背景
-        if (book_color['n']) {
-          this.changeBookColor(book_color['n'], book_color['color'], book_color['str']);
+        if (book_color) {
+          if (book_color['n']) {
+            this.changeBookColor(book_color['n'], book_color['color'], book_color['str']);
+          }
         }
         let bk_font = localStorage.getItem('book_detail_font');//获取已经设置的字体颜色
         if (bk_font) {
@@ -154,8 +156,10 @@
           this.color6 = bk_font;
         }
         let book_detail_fonts_family = JSON.parse(localStorage.getItem('book_detail_fonts_family'));//获取已经设置的字体样式
-        if (book_detail_fonts_family['n']) {
-          this.changeFontamilyFont(book_detail_fonts_family['font'], book_detail_fonts_family['n']);
+        if (book_detail_fonts_family) {
+          if (book_detail_fonts_family['n']) {
+            this.changeFontamilyFont(book_detail_fonts_family['font'], book_detail_fonts_family['n']);
+          }
         }
         let fontSize = localStorage.getItem('book_detail_fonts_size');//修改字体大小
         if (fontSize) {
@@ -304,7 +308,7 @@
       },
     },
     destroyed: function () {
-      window.removeEventListener('scroll', this.handleScroll);   //  离开页面清除（移除）滚轮滚动事件
+      window.removeEventListener('scroll', this.handleScroll, true);   //  离开页面清除（移除）滚轮滚动事件
     }
   }
 </script>

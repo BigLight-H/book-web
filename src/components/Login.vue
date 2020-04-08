@@ -180,7 +180,7 @@
             <p>尚未拥有账户？
               <a href="/register" class="">注册</a>
               &nbsp;&nbsp;&nbsp;
-              <a href="/" class="">回到主页</a>
+              <a @click="goBack">返回上一页</a>
             </p>
           </div>
         </FormItem>
@@ -243,6 +243,9 @@
             this.$Message.warning(res.data.Msg);
           }
         });
+      },
+      goBack() {
+        this.$router.go(-1);//返回上一层
       }
     }
   }
