@@ -1,8 +1,9 @@
 <template>
   <div>
     <Row>
-      <Icon type="ios-contact" class="book-user" size="24" @click="jumpLogin()" />
-      <Icon type="ios-book" class="book-user1" size="24" @click="jumpBookshelf()" />
+      <Icon v-if="logout > 0" type="md-log-out" class="book-user" size="24" @click="modal2 = true" />
+      <Icon v-if="logout < 1" type="ios-contact" class="book-user" size="24" @click="jumpLogin()" />
+      <Icon v-if="logout > 0" type="ios-book" class="book-user1" size="24" @click="jumpBookshelf()" />
     </Row>
     <div class="home">
       <Row type="flex" justify="center" class="code-row-bg">
@@ -18,6 +19,19 @@
         <Col :sm="1" :md="2"></Col>
       </Row>
     </div>
+    <Modal v-model="modal2" width="360">
+      <p slot="header" style="color:#f60;text-align:center">
+        <Icon type="ios-information-circle"></Icon>
+        <span>退出登录</span>
+      </p>
+      <div style="text-align:center">
+        <p>退出后,阅读进度无法保存,无法进入书架</p>
+        <p>是否继续退出?</p>
+      </div>
+      <div slot="footer">
+        <Button type="error" size="large" long :loading="modal_loading" @click="del">退出</Button>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -27,7 +41,16 @@
       data () {
         return {
           msg: 'Welcome to Your Vue.js App',
-          book: ''
+          book: '',
+          logout: 0,
+          modal2: false,
+          modal_loading: false,
+        }
+      },
+      created(){
+        let token = sessionStorage.getItem('book_login_token');//获取token
+        if (token) {
+          this.logout = 1
         }
       },
       methods: {
@@ -42,6 +65,16 @@
             sessionStorage.setItem("book_name", this.book);
             this.$router.push({ path:'/list' })
           }
+        },
+        del () {
+          this.modal_loading = true;
+          sessionStorage.removeItem("book_login_token");
+          setTimeout(() => {
+            this.modal_loading = false;
+            this.modal2 = false;
+            this.$Message.success('退出成功');
+            this.$router.push({ path:'/' })
+          }, 1000);
         }
       }
     }

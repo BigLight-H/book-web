@@ -7,7 +7,7 @@
     <Row class="bookshelf-box">
       <Col :xs="{ span: 22, offset: 1 }" :lg="{ span: 20, offset: 2 }">
           <Col :xs="{ span: 7,  offset: 1, pull:1}" :lg="{ span: 3,  offset: 1, pull:1}" style="position: relative;margin-bottom: 1rem;" v-for="(item,index) in data" :key="index" @click.native="bookshelfJump(item.HubId, item.Link)">
-            <p class="bookshelf-title-num">3</p>
+            <p v-if="item.Status > 0" class="bookshelf-title-num">有更新</p>
             <img v-if="item.Img" :src="item.Img" class="demo-badge">
             <img v-if="! item.Img" src="http://www.vipzw.com/files/article/image/41/41902/41902s.jpg" class="demo-badge">
             <p class="bookshelf-title">{{ item.BookName }}</p>
@@ -85,17 +85,16 @@
   }
 
   .bookshelf-title-num {
-    width: 1.5rem;
-    height: 1.5rem;
-    background: #f74848;
+    width: 100%;
+    height: 2rem;
+    background: #fd494994;
     position: absolute;
-    right: -9px;
-    top: -9px;
-    border-radius: 50%;
     text-align: center;
-    line-height: 1.5rem;
+    line-height: 1.9rem;
     font-weight: bold;
-    color: #fff;
+    bottom: 2.1rem;
+    color: white;
+    border-radius: 0 0 5px 5px;
   }
 
   .bookshelf-box {

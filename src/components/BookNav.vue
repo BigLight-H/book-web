@@ -4,7 +4,7 @@
       <Icon type="ios-arrow-back" size="25" @click="back"/>
     </Col>
     <Col :xs="{ span: 6, offset: 11 }" :lg="{ span: 2, offset: 16 }" style="padding-top: .7rem;display: flex;">
-      <Icon type="ios-book" size="25" style="margin-top: .1rem;" @click="bookshelf"/>
+      <Icon v-if="logout > 0" type="ios-book" size="25" style="margin-top: .1rem;" @click="bookshelf"/>
       &nbsp;&nbsp;
       <Icon type="md-home" size="25" @click="home"/>
     </Col>
@@ -14,6 +14,17 @@
 <script>
     export default {
         name: "BookNav",
+        data() {
+          return {
+            logout:0
+          }
+        },
+        created(){
+          let token = sessionStorage.getItem('book_login_token');//获取token
+          if (token) {
+            this.logout = 1
+          }
+        },
         methods:{
           back(){
             this.$router.go(-1);//返回上一层
