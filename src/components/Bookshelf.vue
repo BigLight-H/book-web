@@ -6,27 +6,34 @@
     </Row>
     <Row class="bookshelf-box">
       <Col :xs="{ span: 22, offset: 1 }" :lg="{ span: 20, offset: 2 }">
-          <Col :xs="{ span: 7,  offset: 1, pull:1}" :lg="{ span: 3,  offset: 1, pull:1}" style="position: relative;margin-bottom: 1rem;" v-for="(item,index) in data" :key="index" @click.native="bookshelfJump(item.HubId, item.Link)">
+          <Col :xs="{ span: 7,  offset: 1, pull:1}" :lg="{ span: 3,  offset: 1, pull:1}" style="position: relative;margin-bottom: 1rem;" v-for="(item,index) in data" :key="index" @click.native="bookshelfJump(item.HubId, item.Link, item.Domain, item.Status, item.NewRenew)">
             <p v-if="item.Status > 0" class="bookshelf-title-num">有更新</p>
+            <p v-if="close > 0" class="bookshelf-title-del" @click="delBooks(item.Domain, $event)">
+              <Icon type="ios-close-circle-outline" />
+            </p>
             <img v-if="item.Img" :src="item.Img" class="demo-badge">
             <img v-if="! item.Img" src="http://www.vipzw.com/files/article/image/41/41902/41902s.jpg" class="demo-badge">
             <p class="bookshelf-title">{{ item.BookName }}</p>
           </Col>
       </Col>
     </Row>
+    <Button v-if="close == 0" type="dashed" class="bookshelf-edit" @click="editBook">编辑</Button>
+    <Button v-if="close == 1" type="dashed" class="bookshelf-edit" @click="editBookOk">完成</Button>
   </div>
 </template>
 
 <script>
   import axios from 'axios'
   axios.defaults.baseURL="/api";
+  import qs from 'qs';
   import BookNav from "./BookNav";
     export default {
         name: "Bookshelf",
         components: {BookNav},
         data() {
           return{
-            data:{}
+            data:{},
+            close:0
           }
         },
         created() {
@@ -50,11 +57,58 @@
           }
         },
         methods: {
-          bookshelfJump(hub_id, link) {
+          bookshelfJump(hub_id, link, domain, status, newRenew) {
+            if (status) {
+              this.changeBooksRenewTime(domain, newRenew)
+            }
             let infos = {link: link, id: hub_id};
             sessionStorage.setItem("book_content",JSON.stringify(infos));
             this.$router.push({ path:'/book' })
           },
+          changeBooksRenewTime(domain, new_renew) {
+            let token = sessionStorage.getItem('book_login_token');//获取token
+            if (token){
+              let postData = qs.stringify({
+                domain:domain,
+                new_renew:new_renew,
+              });
+              axios({
+                method: 'post',
+                url:'/user/books/renew/time',
+                data:postData,
+                headers:{
+                  'Authorization':'Bearer '+token
+                }
+              }).then((res)=>{
+                console.log(res)
+              });
+            }
+          },
+          editBook() {
+            this.close = 1;
+          },
+          editBookOk() {
+            this.close = 0;
+          },
+          delBooks(domain,event) {
+            event.stopPropagation();//禁止穿透
+            let token = sessionStorage.getItem('book_login_token');//获取token
+            if (token){
+              let postData = qs.stringify({
+                domain:domain,
+              });
+              axios({
+                method: 'post',
+                url:'/user/books/del',
+                data:postData,
+                headers:{
+                  'Authorization':'Bearer '+token
+                }
+              }).then((res)=>{
+                this.$router.go(0);//刷新
+              });
+            }
+          }
         }
     }
 </script>
@@ -95,6 +149,26 @@
     bottom: 2.1rem;
     color: white;
     border-radius: 0 0 5px 5px;
+  }
+  .bookshelf-title-del {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 1.65rem;
+    background: #69616194;
+    text-align: center;
+    line-height: 8rem;
+    z-index: 2;
+    font-size: 3rem;
+    color: white;
+  }
+  .bookshelf-edit {
+    position: fixed;
+    bottom: 3rem;
+    right: 2rem;
+    z-index: 3;
   }
 
   .bookshelf-box {
