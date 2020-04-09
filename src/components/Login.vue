@@ -197,7 +197,7 @@
       return {
         loginData: {
           acct:'',
-          pass:''
+          pass:'',
         },
         ruleValidate: {
           acct: [
@@ -211,11 +211,21 @@
         }
       }
     },
+    created() {
+      if (window.TencentCaptcha === undefined) {
+        let script = document.createElement('script');
+        let head = document.getElementsByTagName('head')[0];
+        script.type = "text/javascript";
+        script.charset = "UTF-8";
+        script.src = "https://ssl.captcha.qq.com/TCaptcha.js";
+        head.appendChild(script);
+      }
+    },
     methods: {
       handleSubmit (name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            this.loginUser();
+            this.toCaptcha();
             //this.$Message.success('提交成功!')
           } else {
             this.$Message.error('表单验证失败!')
@@ -225,10 +235,12 @@
       handleReset (name) {
         this.$refs[name].resetFields();
       },
-      loginUser() {
+      loginUser(ticket, randstr) {
         let postData = qs.stringify({
           name:this.loginData.acct,
           pwd:this.loginData.pass,
+          ticket:ticket,
+          randstr:randstr
         });
         axios({
           method: 'post',
@@ -245,7 +257,18 @@
       },
       goBack() {
         this.$router.go(-1);//返回上一层
-      }
+      },
+      toCaptcha() {
+        let that = this;
+        var captcha1 = new TencentCaptcha('2063223615', function (res) {
+          /* callback */
+          console.log(res);
+          if (res.ret === 0) {
+            that.loginUser(res.ticket, res.randstr);
+          }
+        });
+        captcha1.show(); // 显示验证码
+      },
     }
   }
 </script>
