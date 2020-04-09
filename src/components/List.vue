@@ -32,6 +32,7 @@
 
 <script>
   import axios from 'axios'
+  axios.defaults.baseURL="/api";
   import BookNav from "./BookNav";
   export default {
     name: "List",
@@ -45,7 +46,7 @@
     created() {
       let book_name = sessionStorage.getItem('book_name')
       this.name = book_name
-      axios.get('http://127.0.0.1:8088/home/'+book_name).then((res) => {
+      axios.get('/home/'+book_name).then((res) => {
         if (res.data.data.length > 0) {
           this.dataList=res.data.data;
           // sessionStorage.removeItem('book_name');//删除session
@@ -57,7 +58,7 @@
     methods:{
       searchBooks() {
         if (this.name) {
-          axios.get('http://127.0.0.1:8088/home/'+this.name).then((res) => {
+          axios.get('/home/'+this.name).then((res) => {
             if (res.data.data.length > 0) {
               sessionStorage.setItem("book_name", this.name);
               this.dataList=res.data.data;

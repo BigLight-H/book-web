@@ -20,6 +20,7 @@ import router from './router'
 import VueRouter from 'vue-router';
 import ViewUI from 'view-design';
 import querystring from 'querystring'
+import $ from 'jquery'
 import 'view-design/dist/styles/iview.css';
 
 Vue.config.productionTip = false;
