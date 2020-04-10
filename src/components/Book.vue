@@ -195,6 +195,7 @@
           document.getElementById('book-content-nav').style.display = 'block';
           document.getElementById('book-content').style.top = '3rem';
         }
+        this.booksPage();
       },
       changeBookColor(n, color, str) {//修改主题
         for (let i = 1; i < 9 ; i++) {
