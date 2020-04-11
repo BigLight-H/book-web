@@ -195,7 +195,7 @@
           document.getElementById('book-content-nav').style.display = 'block';
           document.getElementById('book-content').style.top = '3rem';
         }
-        this.booksPage();
+
       },
       changeBookColor(n, color, str) {//修改主题
         for (let i = 1; i < 9 ; i++) {
@@ -229,6 +229,8 @@
           });
           let info = {link: this.s_page, id: this.id};
           sessionStorage.setItem("book_content",JSON.stringify(info));
+          let scrollObj = document.getElementById("book-content"); // 滚动区域
+          scrollObj.scrollTop = 0; // div 到头部的距离
         } else {
           this.$Message.warning('这是第一页');
         }
@@ -252,6 +254,8 @@
           });
           let info = {link: this.x_page, id: this.id};
           sessionStorage.setItem("book_content",JSON.stringify(info));
+          let scrollObj = document.getElementById("book-content"); // 滚动区域
+          scrollObj.scrollTop = 0; // div 到头部的距离
         } else {
           this.$Message.warning('这是最后一页');
         }
