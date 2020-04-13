@@ -52,6 +52,7 @@
         if (token) {
           this.logout = 1
         }
+        document.getElementsByTagName('body')[0].style.background= '#e0e0e0'; //设置为新的
       },
       methods: {
         jumpLogin () {
