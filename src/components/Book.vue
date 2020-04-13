@@ -31,37 +31,37 @@
     <Drawer title="设置" :closable="false" v-model="value2">
       <b class="book-latel">背景主题</b>
       <Row>
-        <div @click="changeBookColor(1, 'color-1', '#feecdc')">
+        <div @click="changeBookColor(1, '#fff8f1', '#feecdc')">
           <Col class="book-color" span="6" style="background-color: #fff8f1;" id="book-color-1">
             <div class="book-color-div"><img :src="imgUrl_require" alt=""></div>
           </Col>
         </div>
-        <div @click="changeBookColor(2, 'color-2', '#e2db92')">
+        <div @click="changeBookColor(2, '#fdf6b2', '#e2db92')">
           <Col class="book-color" span="6" style="background-color: #fdf6b2;" id="book-color-2"></Col>
         </div>
-        <div @click="changeBookColor(3, 'color-3', '#c5f1de')">
+        <div @click="changeBookColor(3, '#f3faf7', '#c5f1de')">
           <Col class="book-color" span="6" style="background-color: #f3faf7;" id="book-color-3"></Col>
         </div>
-        <div @click="changeBookColor(4, 'color-4', '#b1e0e0')">
+        <div @click="changeBookColor(4, '#edfafa', '#b1e0e0')">
           <Col class="book-color" span="6" style="background-color: #edfafa;" id="book-color-4"></Col>
         </div>
-        <div @click="changeBookColor(5, 'color-5', '#b4d1ef')">
+        <div @click="changeBookColor(5, '#ebf5ff', '#b4d1ef')">
           <Col class="book-color" span="6" style="background-color: #ebf5ff;" id="book-color-5"></Col>
         </div>
-        <div @click="changeBookColor(6,'color-6', '#bdccea')">
+        <div @click="changeBookColor(6,'#f0f5ff', '#bdccea')">
           <Col class="book-color" span="6" style="background-color: #f0f5ff;" id="book-color-6"></Col>
         </div>
-        <div @click="changeBookColor(7, 'color-7', '#c9c7e2')">
+        <div @click="changeBookColor(7, '#f6f5ff', '#c9c7e2')">
           <Col class="book-color" span="6" style="background-color: #f6f5ff;" id="book-color-7"></Col>
         </div>
-        <div @click="changeBookColor(8, 'color-8', '#9d9ab1')">
+        <div @click="changeBookColor(8, '#838192', '#9d9ab1')">
           <Col class="book-color" span="6" style="background-color: #838192;" id="book-color-8"></Col>
         </div>
       </Row>
       <b class="book-latel1">字体样式</b>
       <Row>
         <Col span="3">&nbsp;</Col>
-        <Col span="6" class="book-font-style"  id="book-font-style-0" ><font @click="changeFontamilyFont('ZJJ', 0)">默认</font></Col>
+        <Col span="6" class="book-font-style"  id="book-font-style-0" ><font @click="changeFontamilyFont('Microsoft YaHei', 0)">默认</font></Col>
         <Col span="6" class="book-font-style1" id="book-font-style-1"><font @click="changeFontamilyFont('PZH', 1)">样式二</font></Col>
         <Col span="6" class="book-font-style2" id="book-font-style-2"><font @click="changeFontamilyFont('XWXKT', 2)">样式三</font></Col>
         <Col span="3">&nbsp;</Col>
@@ -204,7 +204,7 @@
         let html = '<div class="book-color-div"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACXUlEQVRYR2NkGGDAOMD2M4w6YDQERkNgeIZA6yytsN9//qxkYWF+XpN2XQpfWUP1EGido9nBzccWLacsLHP9wvM31cnXRenmgJa5mpsFBDlMpeQFxR/cfPPu65efq2vTbmbQxQHNszVuiEnySohK8vK/fPrx59tX30/XpFyzJVTUE4yChukaCqwsDJt///6n05B1C0N9wxxtIeZ/fy9LKQiKCwpzMn98953hyb33zxl/M1rW5Fx/SLEDmmaovZCUFxT//fPP/3dvvp6tSblhCjO0YaqGFQs74wo5JUFZHn4Ohn9//zFcOfP0P+N/Juf67Jv7CVkOkscbAg2TVRxYudnWa+pLCIAUP7n3/ufH999u1abd1GuYop7EzsVcJ6ciLM/JzQq268aF559///hXWJ99cy4xlhN0QMt0NWkBcZ4jUvICCjADnz78+Ondq89POLlYeeRVReRY2ZjBUvdvvvn8/cuvhTVpN3KJtZygA0AK2udpr+MT5PCXlONnghn88uknBnEpPnj4fXz7neHpo4+HalKu2ZNiOVEOaGhgYGKV1boqoyigwcvPgWH+z++/Ge5df/3k979/hg3pt95Q3QEgAxsmq2kwszOd1jaW5EFPNpdPPfn7n4HBqiHz1ilSLScqBOApfpq6HzMr40ptIyl4MFw/9/z7z1+/U5uy7ywlx3KSHABS3DpPq4ebhy1LTlmI8/WLz5/fvvg8vyr5Rj65lpPsAEii1DrAws6s9evH3+vVyaQnOnTHEiwJsfmucZp6aH3WzdWU+BymlywHUMPiUQeMhsBoCAyaEAAAAcXOIetGxVwAAAAASUVORK5CYII=" alt=""></div>';
         document.getElementById('book-color-'+n).innerHTML = html;
         document.getElementById('book-floor').style.background = str;
-        document.getElementsByTagName('body')[0].className = color; //设置为新的
+        document.getElementById('book-content').style.background = color; //设置为新的
         localStorage.setItem('book_color', JSON.stringify({n:n,color:color,str:str}));
       },
       setFontColor() {
@@ -342,9 +342,6 @@
 </script>
 
 <style>
-  html,body {
-    background-color: #fff8f1;
-  }
   .book-floor {
     position: absolute !important;
     bottom: 0 !important;
@@ -368,9 +365,10 @@
     bottom: 3rem !important;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-    font-family: ZJJ;
+    font-family: Microsoft YaHei;
     font-size: 15px;
     line-height: 18px;
+    background: #fff8f1;
   }
   .book-content::-webkit-scrollbar {
     display: none !important;
