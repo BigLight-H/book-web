@@ -105,7 +105,9 @@
                   'Authorization':'Bearer '+token
                 }
               }).then((res)=>{
-                this.$router.go(0);//刷新
+                if (res.data.Status) {
+                  this.$router.go(0);//刷新
+                }
               });
             }
           }

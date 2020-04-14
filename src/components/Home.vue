@@ -74,7 +74,7 @@
             this.modal_loading = false;
             this.modal2 = false;
             this.$Message.success('退出成功');
-            this.$router.push({ path:'/' })
+            this.$router.go(0);
           }, 1000);
         }
       }
@@ -162,13 +162,13 @@
     }
   }
   .book-user {
-    font-size: 2.6rem !important;
+    font-size: 1.6rem !important;
     position: absolute;
-    right: 1.5rem;
-    top: 1.5rem;
+    right: 2rem;
+    top: 1.53rem;
   }
   .book-user1 {
-    font-size: 2.6rem !important;
+    font-size: 1.6rem !important;
     position: absolute;
     right: 4.5rem;
     top: 1.58rem;

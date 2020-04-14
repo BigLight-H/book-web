@@ -3,7 +3,7 @@
     <Col :xs="{ span: 6, offset: 1 }" :lg="{ span: 2, offset: 3 }" style="padding-top: .7rem;">
       <Icon type="ios-arrow-back" size="25" @click="back"/>
     </Col>
-    <Col :xs="{ span: 6, offset: 11 }" :lg="{ span: 2, offset: 16 }" style="padding-top: .7rem;display: flex;">
+    <Col :xs="{ span: 6, offset: 11 }" :lg="{ span: 2, offset: 16 }" style="padding-top: .7rem;display: flex;padding-left: 1rem;">
       <Icon v-if="logout > 0" type="ios-book" size="25" style="margin-top: .1rem;" @click="bookshelf"/>
       &nbsp;&nbsp;
       <Icon type="md-home" size="25" @click="home"/>
@@ -33,7 +33,9 @@
             this.$router.push({ path:'/' })
           },
           bookshelf(){
-            this.$router.push({ path:'/bookshelf' })
+            if (this.$route.path !== '/bookshelf') {
+              this.$router.push({ path:'/bookshelf' })
+            }
           },
         }
     }

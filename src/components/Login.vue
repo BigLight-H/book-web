@@ -262,7 +262,6 @@
         let that = this;
         var captcha1 = new TencentCaptcha('2063223615', function (res) {
           /* callback */
-          console.log(res);
           if (res.ret === 0) {
             that.loginUser(res.ticket, res.randstr);
           }
