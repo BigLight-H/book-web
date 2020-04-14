@@ -32,7 +32,7 @@
           back(){
             let token = sessionStorage.getItem('book_login_token');//获取token
             let data = JSON.parse(sessionStorage.getItem('bookshelf_data'));//获取session
-            if (token) {
+            if (token && data) {
               this.examineBook(token, data['domain'])
             } else {
               this.$router.go(-1);//返回上一层
