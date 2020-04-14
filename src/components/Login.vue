@@ -223,6 +223,11 @@
         script.src = "https://ssl.captcha.qq.com/TCaptcha.js";
         head.appendChild(script);
       }
+      let data = JSON.parse(localStorage.getItem('book_users_msg'));
+      if (data) {
+        this.loginData.acct = data['name'];
+        this.loginData.pass = data['pwd'];
+      }
     },
     methods: {
       handleSubmit (name) {
@@ -252,6 +257,7 @@
         }).then((res)=>{
           if(res.data.Status) {
             sessionStorage.setItem("book_login_token",res.data.Msg);
+            localStorage.setItem('book_users_msg', JSON.stringify({name:this.loginData.acct,pwd:this.loginData.pass}));
             this.$router.go(-1);//返回上一层
           } else {
             this.$Message.warning(res.data.Msg);
