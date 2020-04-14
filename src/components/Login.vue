@@ -256,7 +256,7 @@
           data:postData
         }).then((res)=>{
           if(res.data.Status) {
-            sessionStorage.setItem("book_login_token",res.data.Msg);
+            localStorage.setItem("book_login_token",res.data.Msg);
             localStorage.setItem('book_users_msg', JSON.stringify({name:this.loginData.acct,pwd:this.loginData.pass}));
             this.$router.go(-1);//返回上一层
           } else {

@@ -48,7 +48,7 @@
         }
       },
       created(){
-        let token = sessionStorage.getItem('book_login_token');//获取token
+        let token = localStorage.getItem('book_login_token');//获取token
         if (token) {
           this.logout = 1
         }
@@ -69,7 +69,7 @@
         },
         del () {
           this.modal_loading = true;
-          sessionStorage.removeItem("book_login_token");
+          localStorage.removeItem("book_login_token");
           setTimeout(() => {
             this.modal_loading = false;
             this.modal2 = false;

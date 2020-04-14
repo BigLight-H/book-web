@@ -23,14 +23,14 @@
           }
         },
         created(){
-          let token = sessionStorage.getItem('book_login_token');//获取token
+          let token = localStorage.getItem('book_login_token');//获取token
           if (token) {
             this.logout = 1
           }
         },
         methods:{
           back(){
-            let token = sessionStorage.getItem('book_login_token');//获取token
+            let token = localStorage.getItem('book_login_token');//获取token
             let data = JSON.parse(sessionStorage.getItem('bookshelf_data'));//获取session
             if (token && data) {
               this.examineBook(token, data['domain'])
@@ -77,7 +77,7 @@
           addBookshelfList() {
             let data = JSON.parse(sessionStorage.getItem('bookshelf_data'));//获取session
             let links = sessionStorage.getItem('bookshelf_data_links');//获取session
-            let token = sessionStorage.getItem('book_login_token');//获取token
+            let token = localStorage.getItem('book_login_token');//获取token
             if (token) {
               let postData = qs.stringify({
                 id:data['id'],

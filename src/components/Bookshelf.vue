@@ -37,7 +37,7 @@
           }
         },
         created() {
-          let token = sessionStorage.getItem('book_login_token');//获取token
+          let token = localStorage.getItem('book_login_token');//获取token
           if (token) {
             axios({
               method: 'get',
@@ -68,7 +68,7 @@
             this.$router.push({ path:'/book' })
           },
           changeBooksRenewTime(domain, new_renew) {
-            let token = sessionStorage.getItem('book_login_token');//获取token
+            let token = localStorage.getItem('book_login_token');//获取token
             if (token){
               let postData = qs.stringify({
                 domain:domain,
@@ -94,7 +94,7 @@
           },
           delBooks(domain,event) {
             event.stopPropagation();//禁止穿透
-            let token = sessionStorage.getItem('book_login_token');//获取token
+            let token = localStorage.getItem('book_login_token');//获取token
             if (token){
               let postData = qs.stringify({
                 domain:domain,

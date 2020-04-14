@@ -316,7 +316,7 @@
         localStorage.setItem('book_detail_fonts_high', hight);
       },
       saveBookLinks(link,domain) {
-        let token = sessionStorage.getItem('book_login_token');//获取token
+        let token = localStorage.getItem('book_login_token');//获取token
         if (token){
           let postData = qs.stringify({
             link:link,

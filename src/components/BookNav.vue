@@ -20,7 +20,7 @@
           }
         },
         created(){
-          let token = sessionStorage.getItem('book_login_token');//获取token
+          let token = localStorage.getItem('book_login_token');//获取token
           if (token) {
             this.logout = 1
           }
