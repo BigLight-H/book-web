@@ -177,10 +177,13 @@
             <p>
               <a href="/recover" class="">忘记密码？</a>
             </p>
-            <p>尚未拥有账户？
+            <p>
+              <a @click="goBack"><Icon type="md-backspace" style="font-size: 1rem"/></a>
+              &nbsp;&nbsp;&nbsp;
+              尚未拥有账户？
               <a href="/register" class="">注册</a>
               &nbsp;&nbsp;&nbsp;
-              <a @click="goBack">返回上一页</a>
+              <a href="/"><Icon type="md-home" style="font-size: 1rem" /></a>
             </p>
           </div>
         </FormItem>

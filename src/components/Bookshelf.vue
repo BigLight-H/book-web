@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div style="padding-top: 3rem">
     <book-nav></book-nav>
-    <Row style="margin-top: 3rem;">
+    <Row>
       <Col span="24" class="book-my-bookshelf tracking-in-expand-fwd">My Bookshelf</Col>
     </Row>
     <Row class="bookshelf-box">
@@ -56,6 +56,7 @@
             });
             this.$router.push({ path:'/login' });
           }
+          document.getElementsByTagName('body')[0].style.background= '#e0e0e0'; //设置为新的
         },
         methods: {
           bookshelfJump(hub_id, link, domain, status, newRenew) {

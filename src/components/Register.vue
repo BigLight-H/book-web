@@ -177,10 +177,13 @@
         </FormItem>
         <FormItem class="form-footer">
           <div class="dev-sign-main-aside-tip" style="text-align: center">
-            <p>已拥有账号？
+            <p>
+              <a @click="goBack"><Icon type="md-backspace" style="font-size: 1rem"/></a>
+              &nbsp;&nbsp;&nbsp;
+              已拥有账号？
               <a href="/login" class="">登录</a>
               &nbsp;&nbsp;&nbsp;
-              <a  @click="goBack">返回上一页</a>
+              <a href="/"><Icon type="md-home" style="font-size: 1rem" /></a>
             </p>
           </div>
         </FormItem>
