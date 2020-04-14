@@ -7,7 +7,7 @@
     <Row class="bookshelf-box">
       <Col :xs="{ span: 22, offset: 1 }" :lg="{ span: 20, offset: 2 }">
           <Col :xs="{ span: 7,  offset: 1, pull:1}" :lg="{ span: 3,  offset: 1, pull:1}" style="position: relative;margin-bottom: 1rem;" v-for="(item,index) in data" :key="index" @click.native="bookshelfJump(item.HubId, item.Link, item.Domain, item.Status, item.NewRenew)">
-            <p v-if="item.Status > 0" class="bookshelf-title-num">有更新</p>
+            <p v-if="item.Status != 0" class="bookshelf-title-num">有更新</p>
             <p v-if="close > 0" class="bookshelf-title-del" @click="delBooks(item.Domain, $event)">
               <Icon type="ios-close-circle-outline" />
             </p>
@@ -41,7 +41,7 @@
           if (token) {
             axios({
               method: 'get',
-              url:'/user/books',
+              url:'/user/books?time='+new Date().getTime(),
               headers:{
                 'Authorization':'Bearer '+token
               }
@@ -100,7 +100,7 @@
               });
               axios({
                 method: 'post',
-                url:'/user/books/del',
+                url:'/user/books/del?time='+new Date().getTime(),
                 data:postData,
                 headers:{
                   'Authorization':'Bearer '+token

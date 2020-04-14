@@ -58,7 +58,7 @@
             });
           },
           examineBook(token, links) {
-            axios.get('/user/verification/books',{
+            axios.get('/user/verification/books?time='+new Date().getTime(),{
               params:{
                 domain:links
               },

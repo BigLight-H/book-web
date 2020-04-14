@@ -52,7 +52,7 @@
     },
     created() {
       let data = JSON.parse(sessionStorage.getItem('signoutShow'));//获取session
-      axios.get('/book/list',{
+      axios.get('/book/list?time='+new Date().getTime(),{
         params:{
           id:data['id'],
           link:data['link']
@@ -62,7 +62,7 @@
         this.data = res.data;
         sessionStorage.setItem("bookshelf_data_links",res.data[0].link);
       });
-      axios.get('/book/synopsis',{
+      axios.get('/book/synopsis?time='+new Date().getTime(),{
         params:{
           id:data['id'],
           link:data['link']
@@ -104,7 +104,7 @@
           });
           axios({
             method: 'post',
-            url:'/user/add/books',
+            url:'/user/add/books?time='+new Date().getTime(),
             data:postData,
             headers:{
               'Authorization':'Bearer '+token

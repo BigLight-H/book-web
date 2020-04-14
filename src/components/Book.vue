@@ -122,7 +122,7 @@
       let data = JSON.parse(sessionStorage.getItem('book_content'));//获取session
       this.id = data['id'];
       sessionStorage.setItem("bookshelf_data_links",data['link']);
-      axios.get('/book/detail',{
+      axios.get('/book/detail?time='+new Date().getTime(),{
         params:{
           id:data['id'],
           link:data['link']
@@ -135,7 +135,7 @@
         this.book_title = res.data[0].name;
         this.list_link = res.data[0].list;
         this.saveBookLinks(data['link'], res.data[0].list);
-        axios.get('/book/list',{
+        axios.get('/book/list?time='+new Date().getTime(),{
           params:{
             id:this.id,
             link:res.data[0].list
@@ -215,7 +215,7 @@
         if (this.s_page !== this.list_link) {
           this.saveBookLinks(this.s_page, this.list_link);
           sessionStorage.setItem("bookshelf_data_links",this.s_page);
-          axios.get('/book/detail',{
+          axios.get('/book/detail?time='+new Date().getTime(),{
             params:{
               id:this.id,
               link:this.s_page
@@ -239,7 +239,7 @@
         if (this.x_page !== this.list_link) {
           this.saveBookLinks(this.x_page, this.list_link);
           sessionStorage.setItem("bookshelf_data_links",this.x_page);
-          axios.get('/book/detail',{
+          axios.get('/book/detail?time='+new Date().getTime(),{
             params:{
               id:this.id,
               link:this.x_page
@@ -263,7 +263,7 @@
       jumpBookDetail(id, link) {
         this.saveBookLinks(link, this.list_link);
         sessionStorage.setItem("bookshelf_data_links",link);
-        axios.get('/book/detail',{
+        axios.get('/book/detail?time='+new Date().getTime(),{
           params:{
             id:id,
             link:link
@@ -324,7 +324,7 @@
           });
           axios({
             method: 'post',
-            url:'/user/books/update',
+            url:'/user/books/update?time='+new Date().getTime(),
             data:postData,
             headers:{
               'Authorization':'Bearer '+token

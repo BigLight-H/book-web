@@ -46,7 +46,7 @@
     created() {
       let book_name = sessionStorage.getItem('book_name')
       this.name = book_name
-      axios.get('/home/'+book_name).then((res) => {
+      axios.get('/home/'+book_name+'?time='+new Date().getTime()).then((res) => {
         if (res.data.data.length > 0) {
           this.dataList=res.data.data;
           // sessionStorage.removeItem('book_name');//删除session
@@ -58,7 +58,7 @@
     methods:{
       searchBooks() {
         if (this.name) {
-          axios.get('/home/'+this.name).then((res) => {
+          axios.get('/home/'+this.name+'?time='+new Date().getTime()).then((res) => {
             if (res.data.data.length > 0) {
               sessionStorage.setItem("book_name", this.name);
               this.dataList=res.data.data;

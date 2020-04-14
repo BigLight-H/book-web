@@ -22,6 +22,8 @@ import ViewUI from 'view-design';
 import querystring from 'querystring'
 import $ from 'jquery'
 import 'view-design/dist/styles/iview.css';
+import axios from 'axios'
+
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter); //使用iview组件

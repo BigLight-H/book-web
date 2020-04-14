@@ -244,7 +244,7 @@
         });
         axios({
           method: 'post',
-          url:'/login',
+          url:'/login?time='+new Date().getTime(),
           data:postData
         }).then((res)=>{
           if(res.data.Status) {

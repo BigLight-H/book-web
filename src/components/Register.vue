@@ -234,7 +234,7 @@
         });
         axios({
           method: 'post',
-          url:'/register',
+          url:'/register?time='+new Date().getTime(),
           data:postData
         }).then((res)=>{
           if(res.data.Status) {
