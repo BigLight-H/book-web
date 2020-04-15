@@ -514,7 +514,7 @@
   .drawer-icons {
     position: fixed;
     background: #867f7f9e;
-    right: 9rem;
+    left: 13rem;
     bottom: 2rem;
     width: 2rem;
     height: 2rem;
