@@ -5,6 +5,7 @@
     </Col>
     <Col :xs="{ span: 6, offset: 11 }" :lg="{ span: 2, offset: 16 }" style="padding-top: .7rem;display: flex;">
       <Icon v-if="logout > 0" type="ios-book" size="25" style="margin-top: .1rem;" @click="bookshelf"/>
+      <p v-if="logout == 0" style="width:2.4rem"></p>
       &nbsp;&nbsp;
       <Icon type="md-home" size="25" @click="home"/>
     </Col>

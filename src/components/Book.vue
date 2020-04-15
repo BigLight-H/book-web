@@ -14,6 +14,7 @@
             <Icon type="ios-arrow-up"  style="margin-top: -7px;margin-left: -9px;"/>
           </div>
         </BackTop>
+        <div class="drawer-contents" @click="goPages"></div>
     </Row>
     <Row class="book-floor" id="book-floor">
       <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 5, offset: 6  }" class="book-page">
@@ -347,6 +348,16 @@
       },
       dataReverse() {
         this.list.reverse();
+      },
+      goPages() {
+        let clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
+        // 设备/屏幕高度
+        let scrollObj = document.getElementById("book-content"); // 滚动区域
+        let scrollTop = scrollObj.scrollTop; // div 到头部的距离
+        let scrollHeight = scrollObj.scrollHeight; // 滚动条的总高度
+        console.log(clientHeight+'--'+scrollTop+'--'+scrollHeight);
+        let p = clientHeight - 48 - 48;
+        scrollObj.scrollTop = scrollTop+p;
       }
     },
     destroyed: function () {
@@ -512,6 +523,16 @@
     line-height: 2rem;
     font-size: 1.2rem;
     color: #fff;
+  }
+  .drawer-contents {
+    position: fixed;
+    right: 2rem;
+    background: #8d9e986b;
+    width: 3rem;
+    height: 2.7rem;
+    font-size: 2rem;
+    border-radius: 5px;
+    top: 16rem;
   }
 </style>
 
