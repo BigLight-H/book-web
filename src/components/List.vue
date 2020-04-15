@@ -27,6 +27,11 @@
         </div>
       </Col>
     </Row>
+    <BackTop :height="100" :bottom="15">
+      <div class="top">
+        <Icon type="ios-arrow-up"  style="margin-top: -7px;margin-left: -9px;"/>
+      </div>
+    </BackTop>
   </div>
 </template>
 
@@ -115,6 +120,15 @@
   .book-list-images {
     width: 100%;
     margin-top: 1rem;
+  }
+  .top{
+    padding: 10px;
+    background: rgba(134, 135, 136, 0.7);
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    width: 3rem;
+    height: 2.7rem;
   }
 
 </style>

@@ -8,7 +8,13 @@
           <tbody v-html="content">{{ content }}</tbody>
         </Col>
         <Col :xs="{ span: 2}" :lg="{ span: 4}">&nbsp;</Col>
-      </Row>
+
+        <BackTop :height="100" :bottom="74">
+          <div class="top" @click="backTop">
+            <Icon type="ios-arrow-up"  style="margin-top: -7px;margin-left: -9px;"/>
+          </div>
+        </BackTop>
+    </Row>
     <Row class="book-floor" id="book-floor">
       <Col :xs="{ span: 5, offset: 1 }" :lg="{ span: 5, offset: 6  }" class="book-page">
         <Button type="info" @click="sPage()">上一章</Button>
@@ -26,6 +32,7 @@
       </Col>
     </Row>
     <Drawer title="全部章节" placement="left" :closable="false" v-model="value1">
+      <div class="drawer-icons" @click="dataReverse"><Icon type="md-swap" /></div>
       <a class="book-left-list" v-for="(item,index) in list" :key="index" @click="jumpBookDetail(item.id, item.link)">{{ item.name }}</a>
     </Drawer>
     <Drawer title="设置" :closable="false" v-model="value2">
@@ -191,9 +198,11 @@
         if (scrollTop > 0) {
           document.getElementById('book-content-nav').style.display = 'none';
           document.getElementById('book-content').style.top = '0';
+          $('.ivu-back-top').css('display','block');
         } else {
           document.getElementById('book-content-nav').style.display = 'block';
           document.getElementById('book-content').style.top = '3rem';
+          $('.ivu-back-top').css('display','none');
         }
 
       },
@@ -331,6 +340,13 @@
             }
           });
         }
+      },
+      backTop() {
+        let scrollObj = document.getElementById("book-content"); // 滚动区域
+        scrollObj.scrollTop = 0; // div 到头部的距离
+      },
+      dataReverse() {
+        this.list.reverse();
       }
     },
     destroyed: function () {
@@ -474,6 +490,28 @@
   }
   .color-8 {
     background: #838192;
+  }
+  .top{
+    padding: 10px;
+    background: rgba(134, 135, 136, 0.7);
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    width: 3rem;
+    height: 2.7rem;
+  }
+  .drawer-icons {
+    position: fixed;
+    background: #867f7f9e;
+    right: 9rem;
+    bottom: 2rem;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 2rem;
+    font-size: 1.2rem;
+    color: #fff;
   }
 </style>
 

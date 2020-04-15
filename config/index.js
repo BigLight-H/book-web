@@ -9,7 +9,7 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: './',//加点线上可行,本地不行
+    assetsPublicPath: '/',//加点线上可行,本地不行
     proxyTable: {
       '/api': {
         target:'http://127.0.0.1:8088', // 你请求的第三方接口

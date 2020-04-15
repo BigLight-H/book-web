@@ -19,6 +19,11 @@
     </Row>
     <Button v-if="close == 0" type="dashed" class="bookshelf-edit" @click="editBook">编辑</Button>
     <Button v-if="close == 1" type="dashed" class="bookshelf-edit" @click="editBookOk">完成</Button>
+    <BackTop :height="100" :bottom="15">
+      <div class="top">
+        <Icon type="ios-arrow-up"  style="margin-top: -7px;margin-left: -9px;"/>
+      </div>
+    </BackTop>
   </div>
 </template>
 
@@ -290,6 +295,15 @@
 
   button:hover::before {
     transform: translate3d(-50%, -50%, 0) scale3d(15, 15, 15);
+  }
+  .top{
+    padding: 10px;
+    background: rgba(134, 135, 136, 0.7);
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    width: 3rem;
+    height: 2.7rem;
   }
 
 </style>
