@@ -29,9 +29,16 @@
 </template>
 
 <script>
-  import("./assets/font/font.css")
+  import("./assets/font/font.css");
   export default {
     name: 'App',
+    created(){
+      let now_time = new Date().getTime();
+      let token_time = localStorage.getItem('book_login_token_time');
+      if ((Number(now_time) - Number(token_time)) > 86400000) {
+        localStorage.removeItem('book_login_token');
+      }
+    }
   }
 </script>
 
