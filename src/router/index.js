@@ -7,6 +7,7 @@ import Bookshelf from '@/components/Bookshelf'
 import BookList from '@/components/BookList'
 import Book from '@/components/Book'
 import List from '@/components/List'
+import Room from '@/components/StackRoom'
 
 Vue.use(Router);
 
@@ -46,6 +47,11 @@ export default new Router({
       path: '/list',
       name: '搜索结果页',
       component: List
+    },
+    {
+      path: '/room',
+      name: '小说库',
+      component: Room
     }
   ],
   mode:'history'
