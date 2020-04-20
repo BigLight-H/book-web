@@ -12,34 +12,25 @@
           <Col :xs="2" :lg="8">&nbsp;</Col>
           <Col :xs="20" :lg="8" class="room-content">
             <p class="room-con-nav">
-              <font>热门书籍</font>
+              <font>{{ info[0] && info[0].title }}</font>
               <a>更多</a>
             </p>
             <Row>
               <Col span="24">
                 <Col :xs="8" :lg="6" style="min-height: 153px">
-                  <img src="http://r.m.kuxiaoshuo.com/cover/aHR0cDovL3FpZGlhbi5xcGljLmNuL3FkYmltZy8zNDk1NzMvMTAxMDg2ODI2NC8xODA=" alt="" style="width: 100%">
+                  <img :src="info[0] && info[0].img" alt="" style="width: 100%">
                 </Col>
                 <Col :xs="16" :lg="18" style="padding-left: .5rem">
-                  <h3>诡异之主</h3>
-                  <p>作者:哈哈哈</p>
-                  <div class="room-mark">蒸汽与机械的浪潮中，谁能触及非凡？历史和黑暗的迷雾里，又是谁在耳语？我从诡秘中醒来，睁眼看见这个世界：枪械，大炮，巨舰，飞空艇，差分机；魔药，占卜，诅咒，倒吊...</div>
+                  <h3>{{ info[0] &&info[0].book_name }}</h3>
+                  <p>作者:{{ info[0] && info[0].book_author }}</p>
+                  <div class="room-mark">{{ info[0] && info[0].book_mark }}</div>
                 </Col>
               </Col>
             </Row>
             <Row>
               <List>
-                <ListItem>
-                  <font>┇ 玄幻 ┇</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta title="书名:我要飞升啊啊啊啊" description="作者:哈哈哈哈" />
-                </ListItem>
-                <ListItem>
-                  <font>┇ 玄幻 ┇</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta title="书名:我要飞升啊啊啊啊" description="作者:哈哈哈哈" />
-                </ListItem>
-                <ListItem>
-                  <font>┇ 玄幻 ┇</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta title="书名:我要飞升啊啊啊啊" description="作者:哈哈哈哈" />
-                </ListItem>
-                <ListItem>
-                  <font>┇ 玄幻 ┇</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta title="书名:我要飞升啊啊啊啊" description="作者:哈哈哈哈" />
+                <ListItem v-for="(item,index) in list_nav" :key="index">
+                  <font>{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
                 </ListItem>
               </List>
             </Row>
@@ -47,42 +38,166 @@
           <Col :xs="2" :lg="8">&nbsp;</Col>
         </Col>
       </Row>
-      <Row class="room-nav">
-        <Col :xs="0" :lg="4">&nbsp;</Col>
-        <Col :xs="24" :lg="16">
-          <Col :xs="6" :lg="6" class="room-nav-div">
-            <Icon type="md-home" />
-            <font class="room-nav-font">首页</font>
+      <Row>
+        <Col span="24" class="room-con-list">
+          <Col :xs="2" :lg="8">&nbsp;</Col>
+          <Col :xs="20" :lg="8" class="room-content">
+            <p class="room-con-nav">
+              <font>{{ info[1] && info[1].title }}</font>
+              <a>更多</a>
+            </p>
+            <Row>
+              <Col span="24">
+                <Col :xs="8" :lg="6" style="min-height: 153px">
+                  <img :src="info[1] && info[1].img" alt="" style="width: 100%">
+                </Col>
+                <Col :xs="16" :lg="18" style="padding-left: .5rem">
+                  <h3>{{ info[1] && info[1].book_name }}</h3>
+                  <p>作者:{{ info[1] && info[1].book_author }}</p>
+                  <div class="room-mark">{{ info[1] && info[1].book_mark }}</div>
+                </Col>
+              </Col>
+            </Row>
+            <Row>
+              <List>
+                <ListItem v-for="(item,index) in list_nav2" :key="index">
+                  <font>{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
+                </ListItem>
+              </List>
+            </Row>
           </Col>
-          <Col :xs="6" :lg="6" class="room-nav-div">
-            <Icon type="ios-keypad" />
-            <font class="room-nav-font">分类</font>
-          </Col>
-          <Col :xs="6" :lg="6" class="room-nav-div">
-            <Icon type="md-barcode" />
-            <font class="room-nav-font">排行</font>
-          </Col>
-          <Col :xs="6" :lg="6" class="room-nav-div">
-            <Icon type="ios-bookmarks" />
-            <font class="room-nav-font">完本</font>
-          </Col>
+          <Col :xs="2" :lg="8">&nbsp;</Col>
         </Col>
-        <Col :xs="0" :lg="4">&nbsp;</Col>
       </Row>
+      <Row>
+        <Col span="24" class="room-con-list">
+          <Col :xs="2" :lg="8">&nbsp;</Col>
+          <Col :xs="20" :lg="8" class="room-content">
+            <p class="room-con-nav">
+              <font>{{ info[2] && info[2].title }}</font>
+              <a>更多</a>
+            </p>
+            <Row>
+              <Col span="24">
+                <Col :xs="8" :lg="6" style="min-height: 153px">
+                  <img :src="info[2] && info[2].img" alt="" style="width: 100%">
+                </Col>
+                <Col :xs="16" :lg="18" style="padding-left: .5rem">
+                  <h3>{{ info[2] && info[2].book_name }}</h3>
+                  <p>作者:{{ info[2] && info[2].book_author }}</p>
+                  <div class="room-mark">{{ info[2] && info[2].book_mark }}</div>
+                </Col>
+              </Col>
+            </Row>
+            <Row>
+              <List>
+                <ListItem v-for="(item,index) in list_nav3" :key="index">
+                  <font>{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
+                </ListItem>
+              </List>
+            </Row>
+          </Col>
+          <Col :xs="2" :lg="8">&nbsp;</Col>
+        </Col>
+      </Row>
+      <Row>
+        <Col span="24" class="room-con-list">
+          <Col :xs="2" :lg="8">&nbsp;</Col>
+          <Col :xs="20" :lg="8" class="room-content">
+            <p class="room-con-nav">
+              <font>{{ info[3] && info[3].title }}</font>
+              <a>更多</a>
+            </p>
+            <Row>
+              <Col span="24">
+                <Col :xs="8" :lg="6" style="min-height: 153px">
+                  <img :src="info[3] && info[3].img" alt="" style="width: 100%">
+                </Col>
+                <Col :xs="16" :lg="18" style="padding-left: .5rem">
+                  <h3>{{ info[3] && info[3].book_name }}</h3>
+                  <p>作者:{{ info[3] && info[3].book_author }}</p>
+                  <div class="room-mark">{{ info[3] && info[3].book_mark }}</div>
+                </Col>
+              </Col>
+            </Row>
+            <Row>
+              <List>
+                <ListItem v-for="(item,index) in list_nav4" :key="index">
+                  <font>{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
+                </ListItem>
+              </List>
+            </Row>
+          </Col>
+          <Col :xs="2" :lg="8">&nbsp;</Col>
+        </Col>
+      </Row>
+      <Row style="margin-bottom: 4rem">
+        <Col span="24" class="room-con-list">
+          <Col :xs="2" :lg="8">&nbsp;</Col>
+          <Col :xs="20" :lg="8" class="room-content">
+            <p class="room-con-nav">
+              <font>{{ info[4] && info[4].title }}</font>
+              <a>更多</a>
+            </p>
+            <Row>
+              <Col span="24">
+                <Col :xs="8" :lg="6" style="min-height: 153px">
+                  <img :src="info[4] && info[4].img" alt="" style="width: 100%">
+                </Col>
+                <Col :xs="16" :lg="18" style="padding-left: .5rem">
+                  <h3>{{ info[4] && info[4].book_name }}</h3>
+                  <p>作者:{{ info[4] && info[4].book_author }}</p>
+                  <div class="room-mark">{{ info[4] && info[4].book_mark }}</div>
+                </Col>
+              </Col>
+            </Row>
+            <Row>
+              <List>
+                <ListItem v-for="(item,index) in list_nav5" :key="index">
+                  <font>{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
+                </ListItem>
+              </List>
+            </Row>
+          </Col>
+          <Col :xs="2" :lg="8">&nbsp;</Col>
+        </Col>
+      </Row>
+      <room-nav :list="1"></room-nav>
   </div>
 </template>
 
 <script>
+  import axios from 'axios'
+  axios.defaults.baseURL="/api";
+  import RoomNav from "./RoomNav";
     export default {
         name: "StackRoom",
+        components: {RoomNav},
         data () {
           return {
-
+            info:{},
+            list_nav:{},
+            list_nav2:{},
+            list_nav3:{},
+            list_nav4:{},
+            list_nav5:{},
           }
         },
         created(){
-          document.getElementsByTagName('body')[0].style.background= '#ffffff'; //设置为新的
+          axios.get('/book/source?time='+new Date().getTime()).then((res) => {
+            this.info = res.data.info;
+            this.list_nav = res.data.list;
+            this.list_nav2 = res.data.list2;
+            this.list_nav3 = res.data.list3;
+            this.list_nav4 = res.data.list4;
+            this.list_nav5 = res.data.list5;
+          }).catch((error) => {
+            console.warn(error)
+          });
         },
+        mounted() {
+          document.getElementById('app').style.background= '#ffffff'; //设置为新的
+        }
     }
 </script>
 
@@ -93,29 +208,6 @@
   .room-search >>> .ivu-icon-ios-search {
     font-size: 1.4rem;
     margin-top: 2px;
-  }
-  .room-nav {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    line-height: 3.5rem;
-    text-align: center;
-    background: #f5f5f5;
-    height: 4rem;
-    border-top: 1px solid #c1c1c1;
-  }
-  .room-nav-font {
-    position: absolute;
-    bottom: -1.3rem;
-    right: 0;
-    left: 0;
-  }
-  .room-nav-div {
-    position: relative;
-  }
-  .room-nav-div i {
-    font-size: 2rem;
   }
   .room-con-nav {
     margin-bottom: .5rem;

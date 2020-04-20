@@ -8,6 +8,7 @@ import BookList from '@/components/BookList'
 import Book from '@/components/Book'
 import List from '@/components/List'
 import Room from '@/components/StackRoom'
+import Type from '@/components/Type'
 
 Vue.use(Router);
 
@@ -52,6 +53,11 @@ export default new Router({
       path: '/room',
       name: '小说库',
       component: Room
+    },
+    {
+      path: '/type',
+      name: '小说分类',
+      component: Type
     }
   ],
   mode:'history'
