@@ -9,6 +9,8 @@ import Book from '@/components/Book'
 import List from '@/components/List'
 import Room from '@/components/StackRoom'
 import Type from '@/components/Type'
+import Rank from '@/components/Rank'
+import Perfection from '@/components/Perfection'
 
 Vue.use(Router);
 
@@ -58,6 +60,16 @@ export default new Router({
       path: '/type',
       name: '小说分类',
       component: Type
+    },
+    {
+      path: '/rank',
+      name: '小说排行',
+      component: Rank
+    },
+    {
+      path: '/perfection',
+      name: '小说完本',
+      component: Perfection
     }
   ],
   mode:'history'

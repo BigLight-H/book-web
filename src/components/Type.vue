@@ -1,12 +1,6 @@
 <template>
     <div>
-      <Row>
-        <Col :xs="2" :lg="8">&nbsp;</Col>
-        <Col :xs="20" :lg="8" class="room-search">
-          <Input icon="ios-search" placeholder="搜索书籍..." style="padding: 1.2rem 0;" />
-        </Col>
-        <Col :xs="2" :lg="8">&nbsp;</Col>
-      </Row>
+      <nav-input></nav-input>
       <Row style="padding: 2rem 0 0 0;">
         <Col span="24" class="room-con-list">
           <Col :xs="2" :lg="8">&nbsp;</Col>
@@ -22,7 +16,7 @@
         <Col :xs="2" :lg="8">&nbsp;</Col>
         <Col :xs="20" :lg="8">
           <List>
-            <ListItem v-for="(item,index) in lists" :key="index">
+            <ListItem v-for="(item,index) in lists" :key="index" @click.native="jumpBookCon(item.book_name_link)">
               <ListItemMeta :title="item.book_name" :description="'作者:'+item.book_author" />
             </ListItem>
           </List>
@@ -47,9 +41,13 @@
   import axios from 'axios'
   axios.defaults.baseURL="/api";
   import RoomNav from "./RoomNav";
+  import NavInput from "./NavInput";
     export default {
         name: "Type",
-        components: {RoomNav},
+        components: {
+          RoomNav,
+          NavInput,
+        },
         data() {
             return {
               info:{},
@@ -68,6 +66,10 @@
         mounted() {
           document.getElementsByTagName('body')[0].style.background= '#ffffff'; //设置为新的
           document.getElementById('app').style.background= '#ffffff'; //设置为新的
+        },
+        beforeDestroy() {
+          document.getElementById('app').style.background= '#e0e0e0'; //设置为新的
+          document.getElementsByTagName('body')[0].style.background= '#e0e0e0'; //设置为新的
         },
         methods: {
           getTypeLists(domain) {
@@ -89,6 +91,11 @@
             this.p_id = id;
             let link = 'https://m.kuxiaoshuo.com'+str
             this.getTypeLists(link);
+          },
+          jumpBookCon(link) {
+            let infos = {link: link, id: 1};
+            sessionStorage.setItem("signoutShow",JSON.stringify(infos));
+            this.$router.push({ path:'/book_list' })
           }
         }
     }

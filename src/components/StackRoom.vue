@@ -1,12 +1,6 @@
 <template>
   <div>
-      <Row>
-        <Col :xs="2" :lg="8">&nbsp;</Col>
-        <Col :xs="20" :lg="8" class="room-search">
-          <Input icon="ios-search" placeholder="搜索书籍..." style="padding: 1.2rem 0;" />
-        </Col>
-        <Col :xs="2" :lg="8">&nbsp;</Col>
-      </Row>
+      <nav-input></nav-input>
       <Row>
         <Col span="24" class="room-con-list">
           <Col :xs="2" :lg="8">&nbsp;</Col>
@@ -16,7 +10,7 @@
               <a>更多</a>
             </p>
             <Row>
-              <Col span="24">
+              <Col span="24" @click.native="jumpBookCon(info[0] && info[0].book_name_link)">
                 <Col :xs="8" :lg="6" style="min-height: 153px">
                   <img :src="info[0] && info[0].img" alt="" style="width: 100%">
                 </Col>
@@ -29,7 +23,7 @@
             </Row>
             <Row>
               <List>
-                <ListItem v-for="(item,index) in list_nav" :key="index">
+                <ListItem v-for="(item,index) in list_nav" :key="index" @click.native="jumpBookCon(item.list_book_name_link)">
                   <font>{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
                 </ListItem>
               </List>
@@ -47,7 +41,7 @@
               <a>更多</a>
             </p>
             <Row>
-              <Col span="24">
+              <Col span="24" @click.native="jumpBookCon(info[1] && info[1].book_name_link)">
                 <Col :xs="8" :lg="6" style="min-height: 153px">
                   <img :src="info[1] && info[1].img" alt="" style="width: 100%">
                 </Col>
@@ -60,7 +54,7 @@
             </Row>
             <Row>
               <List>
-                <ListItem v-for="(item,index) in list_nav2" :key="index">
+                <ListItem v-for="(item,index) in list_nav2" :key="index" @click.native="jumpBookCon(item.list_book_name_link)">
                   <font>{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
                 </ListItem>
               </List>
@@ -78,7 +72,7 @@
               <a>更多</a>
             </p>
             <Row>
-              <Col span="24">
+              <Col span="24" @click.native="jumpBookCon(info[2] && info[2].book_name_link)">
                 <Col :xs="8" :lg="6" style="min-height: 153px">
                   <img :src="info[2] && info[2].img" alt="" style="width: 100%">
                 </Col>
@@ -91,7 +85,7 @@
             </Row>
             <Row>
               <List>
-                <ListItem v-for="(item,index) in list_nav3" :key="index">
+                <ListItem v-for="(item,index) in list_nav3" :key="index" @click.native="jumpBookCon(item.list_book_name_link)">
                   <font>{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
                 </ListItem>
               </List>
@@ -109,7 +103,7 @@
               <a>更多</a>
             </p>
             <Row>
-              <Col span="24">
+              <Col span="24" @click.native="jumpBookCon(info[3] && info[3].book_name_link)">
                 <Col :xs="8" :lg="6" style="min-height: 153px">
                   <img :src="info[3] && info[3].img" alt="" style="width: 100%">
                 </Col>
@@ -122,7 +116,7 @@
             </Row>
             <Row>
               <List>
-                <ListItem v-for="(item,index) in list_nav4" :key="index">
+                <ListItem v-for="(item,index) in list_nav4" :key="index" @click.native="jumpBookCon(item.list_book_name_link)">
                   <font>{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
                 </ListItem>
               </List>
@@ -140,7 +134,7 @@
               <a>更多</a>
             </p>
             <Row>
-              <Col span="24">
+              <Col span="24" @click.native="jumpBookCon(info[4] && info[4].book_name_link)">
                 <Col :xs="8" :lg="6" style="min-height: 153px">
                   <img :src="info[4] && info[4].img" alt="" style="width: 100%">
                 </Col>
@@ -153,7 +147,7 @@
             </Row>
             <Row>
               <List>
-                <ListItem v-for="(item,index) in list_nav5" :key="index">
+                <ListItem v-for="(item,index) in list_nav5" :key="index" @click.native="jumpBookCon(item.list_book_name_link)">
                   <font>{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
                 </ListItem>
               </List>
@@ -170,9 +164,13 @@
   import axios from 'axios'
   axios.defaults.baseURL="/api";
   import RoomNav from "./RoomNav";
+  import NavInput from "./NavInput";
     export default {
         name: "StackRoom",
-        components: {RoomNav},
+        components: {
+          RoomNav,
+          NavInput,
+        },
         data () {
           return {
             info:{},
@@ -197,18 +195,21 @@
         },
         mounted() {
           document.getElementById('app').style.background= '#ffffff'; //设置为新的
+        },
+        beforeDestroy() {
+          document.getElementById('app').style.background= '#e0e0e0'; //设置为新的
+        },
+        methods: {
+          jumpBookCon(link) {
+            let infos = {link: link, id: 1};
+            sessionStorage.setItem("signoutShow",JSON.stringify(infos));
+            this.$router.push({ path:'/book_list' })
+          }
         }
     }
 </script>
 
 <style scoped>
-  .room-search >>> .ivu-input-default {
-    height: 2.5rem;
-  }
-  .room-search >>> .ivu-icon-ios-search {
-    font-size: 1.4rem;
-    margin-top: 2px;
-  }
   .room-con-nav {
     margin-bottom: .5rem;
   }

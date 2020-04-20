@@ -60,6 +60,10 @@
         console.warn(error)
       });
     },
+    mounted() {
+      document.getElementsByTagName('body')[0].style.background= '#e0e0e0'; //设置为新的
+      document.getElementById('app').style.background= '#e0e0e0'; //设置为新的
+    },
     methods:{
       searchBooks() {
         if (this.name) {
