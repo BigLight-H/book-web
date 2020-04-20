@@ -128,8 +128,7 @@
       margin-left: -11px;
     }
     .type-page-div {
-      padding-bottom: 4rem;
-      padding: 2rem 0;
+      padding: 2rem 0 6rem 0;
       display: none;
     }
 </style>
