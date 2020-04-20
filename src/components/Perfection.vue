@@ -97,7 +97,7 @@
     margin-left: -11px;
   }
   .type-page-div {
-    margin-bottom: 4rem;
+    padding-bottom: 4rem;
     padding: 2rem 0;
   }
 </style>
