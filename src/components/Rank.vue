@@ -34,6 +34,7 @@
       <Col :xs="2" :lg="8">&nbsp;</Col>
     </Row>
     <room-nav :list="3"></room-nav>
+    <back-home></back-home>
   </div>
 </template>
 
@@ -42,11 +43,13 @@
   axios.defaults.baseURL="/api";
   import RoomNav from "./RoomNav";
   import NavInput from "./NavInput";
+  import BackHome from "./BackHome";
   export default {
     name: "Rank",
     components: {
       RoomNav,
       NavInput,
+      BackHome,
     },
     data() {
       return {

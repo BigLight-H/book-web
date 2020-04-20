@@ -32,6 +32,9 @@
         <Button type="error" size="large" long :loading="modal_loading" @click="del">退出</Button>
       </div>
     </Modal>
+    <ButtonGroup vertical style="position: absolute;right: 2rem;bottom: 2rem;" @click.native="goBookRoom()">
+      <Button icon="ios-home"></Button>
+    </ButtonGroup>
   </div>
 </template>
 
@@ -76,6 +79,9 @@
             this.$Message.success('退出成功');
             this.$router.go(0);
           }, 1000);
+        },
+        goBookRoom() {
+          this.$router.push({ path:'/room' })
         }
       }
     }
