@@ -172,6 +172,7 @@
     z-index: 2;
     font-size: 3rem;
     color: white;
+    border-radius: 5px;
   }
   .bookshelf-edit {
     position: fixed;
