@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="room-type-content">
       <nav-input></nav-input>
       <Row style="padding: 2rem 0 0 0;">
         <Col span="24" class="room-con-list">
@@ -65,6 +65,23 @@
           }).catch((error) => {
             console.warn(error)
           });
+
+          let link = sessionStorage.getItem('book_type_list');
+          if (link) {
+            axios.get('/book/source/type?link='+ link +'&time='+new Date().getTime()).then((res) => {
+              this.lists = res.data.list;
+              this.pages = res.data.page;
+              if(res.data.page.book_next_page) {
+                if (this.p_id == 4) {
+                  this.pages.book_first_page = this.pages.book_next_page
+                  this.pages.book_next_page='';
+                }
+                $(".type-page-div").css('display','block');
+              }
+            }).catch((error) => {
+              console.warn(error)
+            });
+          }
         },
         mounted() {
           document.getElementsByTagName('body')[0].style.background= '#ffffff'; //设置为新的
@@ -73,6 +90,7 @@
         beforeDestroy() {
           document.getElementById('app').style.background= '#e0e0e0'; //设置为新的
           document.getElementsByTagName('body')[0].style.background= '#e0e0e0'; //设置为新的
+          sessionStorage.removeItem('book_type_list');
         },
         methods: {
           getTypeLists(domain) {

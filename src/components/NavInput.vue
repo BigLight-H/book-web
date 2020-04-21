@@ -33,6 +33,6 @@
   }
   .room-search >>> .ivu-icon-ios-search {
     font-size: 1.4rem;
-    margin-top: 2px;
+    padding-top: .3rem;
   }
 </style>

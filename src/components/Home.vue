@@ -32,9 +32,7 @@
         <Button type="error" size="large" long :loading="modal_loading" @click="del">退出</Button>
       </div>
     </Modal>
-    <ButtonGroup vertical style="position: absolute;right: 2rem;bottom: 2rem;" @click.native="goBookRoom()">
-      <Button icon="ios-home"></Button>
-    </ButtonGroup>
+    <p class="star-room" @click="goBookRoom()"><b>进入书屋...</b></p>
   </div>
 </template>
 
@@ -178,6 +176,21 @@
     position: absolute;
     right: 4.5rem;
     top: 1.58rem;
+  }
+  .star-room {
+    position: absolute;
+    bottom: 6rem;
+    right: 0;
+    left: 0;
+    height: 2rem;
+    font-size: 1rem;
+    color: #9c9c9c;
+    text-align: center;
+  }
+  .star-room b {
+    padding: 1rem;
+    background: rgba(199, 199, 199, 0.5215686274509804);
+    border-radius: 5px;
   }
 
 

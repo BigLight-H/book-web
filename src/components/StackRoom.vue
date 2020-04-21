@@ -5,7 +5,7 @@
         <Col span="24" class="room-con-list">
           <Col :xs="2" :lg="8">&nbsp;</Col>
           <Col :xs="20" :lg="8" class="room-content">
-            <p class="room-con-nav">
+            <p class="room-con-nav" @click="jumpBookPai(info[0] && info[0].more)">
               <font>{{ info[0] && info[0].title }}</font>
               <a>更多</a>
             </p>
@@ -23,8 +23,8 @@
             </Row>
             <Row>
               <List>
-                <ListItem v-for="(item,index) in list_nav" :key="index" @click.native="jumpBookCon(item.list_book_name_link)">
-                  <font>{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
+                <ListItem v-for="(item,index) in list_nav" :key="index" >
+                  <font @click="jumpBookType(item.list_type_link)">{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta @click.native="jumpBookCon(item.list_book_name_link)" :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
                 </ListItem>
               </List>
             </Row>
@@ -36,7 +36,7 @@
         <Col span="24" class="room-con-list">
           <Col :xs="2" :lg="8">&nbsp;</Col>
           <Col :xs="20" :lg="8" class="room-content">
-            <p class="room-con-nav">
+            <p class="room-con-nav" @click="jumpBookPai(info[1] && info[1].more)">
               <font>{{ info[1] && info[1].title }}</font>
               <a>更多</a>
             </p>
@@ -54,8 +54,8 @@
             </Row>
             <Row>
               <List>
-                <ListItem v-for="(item,index) in list_nav2" :key="index" @click.native="jumpBookCon(item.list_book_name_link)">
-                  <font>{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
+                <ListItem v-for="(item,index) in list_nav2" :key="index" >
+                  <font @click="jumpBookType(item.list_type_link)">{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta @click="jumpBookCon(item.list_book_name_link)" :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
                 </ListItem>
               </List>
             </Row>
@@ -67,7 +67,7 @@
         <Col span="24" class="room-con-list">
           <Col :xs="2" :lg="8">&nbsp;</Col>
           <Col :xs="20" :lg="8" class="room-content">
-            <p class="room-con-nav">
+            <p class="room-con-nav" @click="jumpBookPai(info[2] && info[2].more)">
               <font>{{ info[2] && info[2].title }}</font>
               <a>更多</a>
             </p>
@@ -85,8 +85,8 @@
             </Row>
             <Row>
               <List>
-                <ListItem v-for="(item,index) in list_nav3" :key="index" @click.native="jumpBookCon(item.list_book_name_link)">
-                  <font>{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
+                <ListItem v-for="(item,index) in list_nav3" :key="index">
+                  <font @click="jumpBookType(item.list_type_link)">{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta @click="jumpBookCon(item.list_book_name_link)" :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
                 </ListItem>
               </List>
             </Row>
@@ -98,7 +98,7 @@
         <Col span="24" class="room-con-list">
           <Col :xs="2" :lg="8">&nbsp;</Col>
           <Col :xs="20" :lg="8" class="room-content">
-            <p class="room-con-nav">
+            <p class="room-con-nav" @click="jumpBookPai(info[3] && info[3].more)">
               <font>{{ info[3] && info[3].title }}</font>
               <a>更多</a>
             </p>
@@ -116,8 +116,8 @@
             </Row>
             <Row>
               <List>
-                <ListItem v-for="(item,index) in list_nav4" :key="index" @click.native="jumpBookCon(item.list_book_name_link)">
-                  <font>{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
+                <ListItem v-for="(item,index) in list_nav4" :key="index">
+                  <font @click="jumpBookType(item.list_type_link)">{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta @click="jumpBookCon(item.list_book_name_link)" :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
                 </ListItem>
               </List>
             </Row>
@@ -129,7 +129,7 @@
         <Col span="24" class="room-con-list">
           <Col :xs="2" :lg="8">&nbsp;</Col>
           <Col :xs="20" :lg="8" class="room-content">
-            <p class="room-con-nav">
+            <p class="room-con-nav" @click="jumpBookPai(info[4] && info[4].more)">
               <font>{{ info[4] && info[4].title }}</font>
               <a>更多</a>
             </p>
@@ -147,8 +147,8 @@
             </Row>
             <Row>
               <List>
-                <ListItem v-for="(item,index) in list_nav5" :key="index" @click.native="jumpBookCon(item.list_book_name_link)">
-                  <font>{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
+                <ListItem v-for="(item,index) in list_nav5" :key="index">
+                  <font @click="jumpBookType(item.list_type_link)">{{ item.list_type_name }}</font>&nbsp;&nbsp;&nbsp;&nbsp;<ListItemMeta @click="jumpBookCon(item.list_book_name_link)" :title="item.list_book_name" :description="'作者:'+item.list_book_author" />
                 </ListItem>
               </List>
             </Row>
@@ -207,6 +207,16 @@
             let infos = {link: link, id: 1};
             sessionStorage.setItem("signoutShow",JSON.stringify(infos));
             this.$router.push({ path:'/book_list' })
+          },
+          jumpBookPai(str) {
+            let link = 'https://m.kuxiaoshuo.com'+str;
+            sessionStorage.setItem("book_pai_hang",link);
+            this.$router.push({ path:'/rank' })
+          },
+          jumpBookType (str) {
+            let link = 'https://m.kuxiaoshuo.com'+str;
+            sessionStorage.setItem("book_type_list",link);
+            this.$router.push({ path:'/type' })
           }
         }
     }
