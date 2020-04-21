@@ -125,7 +125,7 @@
           <Col :xs="2" :lg="8">&nbsp;</Col>
         </Col>
       </Row>
-      <Row style="margin-bottom: 4rem">
+      <Row style="padding-bottom: 4rem">
         <Col span="24" class="room-con-list">
           <Col :xs="2" :lg="8">&nbsp;</Col>
           <Col :xs="20" :lg="8" class="room-content">
