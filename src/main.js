@@ -35,4 +35,16 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
-})
+});
+
+router.afterEach( ( to, from, next ) => {
+  setTimeout(()=>{
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?15a169ba14d71dd1d04a4551f17fa6a0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  },0);
+} );
